@@ -6,24 +6,19 @@ namespace App\Action;
 
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
-use App\Model\Cms\Client;
-use Slim\Views\PhpRenderer;
+use App\Action\Action;
 
-class HomeAction
+class PageAction extends Action
 {
-    protected $view;
-    protected $CmsClient;
-
-    public function __construct(PhpRenderer $view, Client $CmsClient)
-    {
-        $this->view = $view;
-        $this->CmsClient = $CmsClient;
-    }
-
     public function __invoke(Request $request, Response $response, $args) {
         
+        //$page = $this->Cms->getPage(['url' => '']);
+        $meta = '';
+        $nav = '';
+        $globals = '';
+        
         $html_content = '';
-        foreach ($this->CmsClient->getContent() as $content) {
+        foreach ($this->Cms->getContent([]) as $content) {
             $html_content .= $this->view->fetch('hello.php', array_merge($content));
         }
 

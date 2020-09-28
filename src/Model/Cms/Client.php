@@ -4,6 +4,7 @@ namespace App\Model\Cms;
 
 use App\Model\Content\ContentSelect;
 
+
 /**
  * Delivery client
  */
@@ -15,8 +16,19 @@ class Client
     {
         $this->content = $content;
     }
+
     /**
      * params['scope'] all/preview
+     */
+    public function getPage($param = [])
+    {
+        return $this->content->select([]);
+    }
+
+    /**
+     * params:
+     * collection (default "content")
+     * scope: all/preview
      */
     public function getContent($param = [])
     {
