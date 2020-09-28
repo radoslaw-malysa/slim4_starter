@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Model\Content;
+namespace App\Model\Repositories;
 
-use App\Model\Tables;
+use App\Model\Repositories\Tables;
 use PDO;
 
 /**
  * Repository.
  */
-class ContentSelect
+class ContentRepository
 {
     /**
      * @var PDO The database connection
