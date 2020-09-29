@@ -9,11 +9,13 @@ use App\Model\Repositories\Repository;
 /**
  * Repository.
  */
-class ContentRepository extends Repository
+class MetaRepository extends Repository
 {
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->model = Tables::CONTENT;
+        $this->model = Tables::META;
     }
+
+    
 }

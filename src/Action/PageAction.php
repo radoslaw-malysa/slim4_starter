@@ -12,16 +12,19 @@ class PageAction extends Action
 {
     public function __invoke(Request $request, Response $response, $args) {
         
-        //$page = $this->Cms->getPage(['url' => '']); //arr
+        $page = $this->cms->page(['url' => $request->getUri()->getPath()]);
         
-        
-        $html_content = '';
-        foreach ($this->cms->getContent([]) as $content) {
-            $html_content .= $this->view->fetch('hello.php', array_merge($content));
+        $html = '';
+        if (is_array($page['content'])) {
+            foreach ($page['content'] as $content) {
+                $html .= $this->view->fetch('hello.php', array_merge($content, ['globals' => $page['globals']]));
+            }
         }
 
         return $this->view->render($response, 'layout.php', [
-            'content' => $html_content
+            'content' => $html,
+            'meta' => $page['meta'],
+            'globals' => $page['globals']
         ]);
     }
 
