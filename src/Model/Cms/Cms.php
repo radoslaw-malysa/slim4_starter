@@ -14,7 +14,10 @@ use App\Model\Repositories\MetaRepository;
 class Cms
 {
     public $content;
-    public $page;
+    public $assets;
+    public $globals;
+    public $navs;
+    public $meta;
     
     public function __construct(ContentRepository $content, AssetsRepository $assets, NavsRepository $navs, GlobalsRepository $globals, MetaRepository $meta)
     {
@@ -26,7 +29,7 @@ class Cms
     }
 
     /**
-     * return all variables for route
+     * get all route variables
      * $params: url / id_page
      */
     public function page($params = [])
@@ -36,19 +39,10 @@ class Cms
         }
 
         if ($nav['id']) {
-            $content = $this->content->where('id_nav', $nav['id'])->get();
-            $content_count = count($content);
-
-            if ($content_count > 0) {
-                for ($i=0; $i < count($content); $i++) {
-                    $content[$i] = array_merge($content[$i], $this->assets->where('id_parent', $content[$i]['id'])->groupped());
-                }
-            }
-            
             return [
                 'globals' => $this->globals->get(),
                 'nav' => $nav,
-                'content' => $content,
+                'content' => $this->content->where('id_nav', $nav['id'])->get(),
                 'meta' => $this->meta->where('id_nav', $nav['id'])->first()
             ];
         } else {
