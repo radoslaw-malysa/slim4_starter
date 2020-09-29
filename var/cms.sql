@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 28 Wrz 2020, 17:21
+-- Czas generowania: 29 Wrz 2020, 16:04
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -47,8 +47,17 @@ CREATE TABLE `assets` (
   `view` varchar(512) COLLATE utf8_polish_ci NOT NULL,
   `update_time` datetime NOT NULL,
   `update_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL,
-  `update_user` smallint(5) UNSIGNED NOT NULL
+  `update_user` smallint(5) UNSIGNED NOT NULL,
+  `type` varchar(8) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `assets`
+--
+
+INSERT INTO `assets` (`id`, `id_parent`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `view`, `update_time`, `update_ip`, `update_user`, `type`) VALUES
+(1, 1, 'Zdjęcie fajne', '', '', '', 'zdjecie.jpg', 'Alt do zdjęcia', '', '', '', '', '0000-00-00', 0, 0, '', '0000-00-00 00:00:00', '', 0, 'gallery'),
+(2, 1, 'RODO', '', '', '', 'rodo.pdf', '', '', '', '', '', '0000-00-00', 0, 0, '', '0000-00-00 00:00:00', '', 0, 'files');
 
 -- --------------------------------------------------------
 
@@ -58,8 +67,7 @@ CREATE TABLE `assets` (
 
 CREATE TABLE `content` (
   `id` int(10) UNSIGNED NOT NULL,
-  `id_parent` int(10) UNSIGNED NOT NULL,
-  `slug` varchar(64) COLLATE utf8_polish_ci NOT NULL,
+  `id_nav` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `subtitle` varchar(512) COLLATE utf8_polish_ci NOT NULL,
   `lead` varchar(255) COLLATE utf8_polish_ci NOT NULL,
@@ -83,8 +91,8 @@ CREATE TABLE `content` (
 -- Zrzut danych tabeli `content`
 --
 
-INSERT INTO `content` (`id`, `id_parent`, `slug`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `view`, `update_time`, `update_ip`, `update_user`) VALUES
-(1, 0, '', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, '{\r\n    \"template\": \"hello.php\",\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"app', '0000-00-00 00:00:00', '', 0);
+INSERT INTO `content` (`id`, `id_nav`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `view`, `update_time`, `update_ip`, `update_user`) VALUES
+(1, 1, 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, '{\r\n    \"template\": \"hello.php\",\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"app', '0000-00-00 00:00:00', '', 0);
 
 -- --------------------------------------------------------
 
@@ -99,6 +107,45 @@ CREATE TABLE `globals` (
   `title` varchar(32) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `globals`
+--
+
+INSERT INTO `globals` (`id`, `name`, `content`, `title`) VALUES
+(1, 'firm_name', 'IMD', 'Nazwa firmy'),
+(2, 'firm_email', 'rm@pawelec.info', 'E-mail firmowy');
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `meta`
+--
+
+CREATE TABLE `meta` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_nav` int(10) UNSIGNED NOT NULL,
+  `title` varchar(96) COLLATE utf8_polish_ci NOT NULL,
+  `description` varchar(196) COLLATE utf8_polish_ci NOT NULL,
+  `canonical` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `og_type` varchar(32) COLLATE utf8_polish_ci NOT NULL,
+  `og_title` varchar(96) COLLATE utf8_polish_ci NOT NULL,
+  `og_description` varchar(196) COLLATE utf8_polish_ci NOT NULL,
+  `og_url` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `og_site_name` varchar(64) COLLATE utf8_polish_ci NOT NULL,
+  `og_locale` varchar(8) COLLATE utf8_polish_ci NOT NULL,
+  `og_locale_alternate` varchar(8) COLLATE utf8_polish_ci NOT NULL,
+  `og_image` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `og_image_width` varchar(4) COLLATE utf8_polish_ci NOT NULL,
+  `og_image_height` varchar(4) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `meta`
+--
+
+INSERT INTO `meta` (`id`, `id_nav`, `title`, `description`, `canonical`, `og_type`, `og_title`, `og_description`, `og_url`, `og_site_name`, `og_locale`, `og_locale_alternate`, `og_image`, `og_image_width`, `og_image_height`) VALUES
+(1, 1, 'Meta tytuł strony', 'Meta opis strony', '', '', '', '', '', '', '', '', '', '', '');
+
 -- --------------------------------------------------------
 
 --
@@ -107,6 +154,7 @@ CREATE TABLE `globals` (
 
 CREATE TABLE `navs` (
   `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(16) COLLATE utf8_polish_ci NOT NULL,
   `id_parent` int(10) UNSIGNED NOT NULL,
   `title` varchar(64) COLLATE utf8_polish_ci NOT NULL,
   `url` varchar(128) COLLATE utf8_polish_ci NOT NULL,
@@ -119,9 +167,9 @@ CREATE TABLE `navs` (
 -- Zrzut danych tabeli `navs`
 --
 
-INSERT INTO `navs` (`id`, `id_parent`, `title`, `url`, `hidden`, `access`, `ord`) VALUES
-(1, 0, 'Home', '/', 0, 0, 1),
-(2, 0, 'O nas', '/o-nas', 0, 0, 1);
+INSERT INTO `navs` (`id`, `name`, `id_parent`, `title`, `url`, `hidden`, `access`, `ord`) VALUES
+(1, 'pages', 0, 'Home', '/', 0, 0, 1),
+(2, 'pages', 0, 'O nas', '/o-nas', 0, 0, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -141,10 +189,9 @@ ALTER TABLE `assets`
 --
 ALTER TABLE `content`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_parent` (`id_parent`),
   ADD KEY `ord` (`ord`),
   ADD KEY `event_date` (`event_date`),
-  ADD KEY `slug` (`slug`);
+  ADD KEY `id_nav` (`id_nav`);
 
 --
 -- Indeksy dla tabeli `globals`
@@ -153,11 +200,19 @@ ALTER TABLE `globals`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeksy dla tabeli `meta`
+--
+ALTER TABLE `meta`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_nav` (`id_nav`);
+
+--
 -- Indeksy dla tabeli `navs`
 --
 ALTER TABLE `navs`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_parent` (`id_parent`);
+  ADD KEY `id_parent` (`id_parent`),
+  ADD KEY `name` (`name`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -167,7 +222,7 @@ ALTER TABLE `navs`
 -- AUTO_INCREMENT dla tabeli `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `content`
@@ -179,7 +234,13 @@ ALTER TABLE `content`
 -- AUTO_INCREMENT dla tabeli `globals`
 --
 ALTER TABLE `globals`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT dla tabeli `meta`
+--
+ALTER TABLE `meta`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT dla tabeli `navs`
