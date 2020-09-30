@@ -5,7 +5,7 @@ namespace App\Model\Repositories;
  */
 final class Tables
 {
-    public const CONTENT = 'content';
+    public const CONTENTS = 'contents';
     public const ASSETS = 'assets';
     public const NAVS = 'navs';
     public const GLOBALS = 'globals';

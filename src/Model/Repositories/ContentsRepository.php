@@ -10,12 +10,12 @@ use App\Model\Repositories\AssetsRepository;
 /**
  * Repository.
  */
-class ContentRepository extends Repository
+class ContentsRepository extends Repository
 {
     public function __construct(PDO $connection, AssetsRepository $assets)
     {
         $this->connection = $connection;
-        $this->model = Tables::CONTENT;
+        $this->model = Tables::CONTENTS;
         $this->assets = $assets;
     }
 

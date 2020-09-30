@@ -15,9 +15,9 @@ class PageAction extends Action
         $page = $this->cms->page(['url' => $request->getUri()->getPath()]);
         
         $html = '';
-        if (is_array($page['content'])) {
-            foreach ($page['content'] as $content) {
-                $html .= $this->view->fetch('hello.php', array_merge($content, ['globals' => $page['globals']]));
+        if (is_array($page['contents'])) {
+            foreach ($page['contents'] as $content) {
+                $html .= $this->view->fetch('features/index.php', array_merge($content, ['globals' => $page['globals']], get_object_vars($this->cms)));
             }
         }
 

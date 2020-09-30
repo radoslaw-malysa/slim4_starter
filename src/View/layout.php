@@ -12,6 +12,9 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">
+    <link href="/css/tachyons.min.css" rel="stylesheet">
+    <link href="/css/cor.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   </head>
   <body>
     <?php echo $content ?>

@@ -4,7 +4,7 @@ namespace App\Model\Cms;
 
 use App\Model\Repositories\GlobalsRepository;
 use App\Model\Repositories\NavsRepository;
-use App\Model\Repositories\ContentRepository;
+use App\Model\Repositories\ContentsRepository;
 use App\Model\Repositories\AssetsRepository;
 use App\Model\Repositories\MetaRepository;
 
@@ -19,9 +19,9 @@ class Cms
     public $navs;
     public $meta;
     
-    public function __construct(ContentRepository $content, AssetsRepository $assets, NavsRepository $navs, GlobalsRepository $globals, MetaRepository $meta)
+    public function __construct(ContentsRepository $contents, AssetsRepository $assets, NavsRepository $navs, GlobalsRepository $globals, MetaRepository $meta)
     {
-        $this->content = $content;
+        $this->contents = $contents;
         $this->assets = $assets;
         $this->globals = $globals;
         $this->navs = $navs;
@@ -42,7 +42,7 @@ class Cms
             return [
                 'globals' => $this->globals->get(),
                 'nav' => $nav,
-                'content' => $this->content->where('id_nav', $nav['id'])->get(),
+                'contents' => $this->contents->where('id_nav', $nav['id'])->get(),
                 'meta' => $this->meta->where('id_nav', $nav['id'])->first()
             ];
         } else {

@@ -1,0 +1,19 @@
+/*vars*/
+body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+body, .type-color {
+    color: #434343;
+}
+.section {
+    width: 100%;
+}
+.section-inner {
+    width: 100%;
+    max-width: 1200px;
+}
+.ico-feature {
+    width: 100px;
+
+}
