@@ -7,11 +7,21 @@ body {
 body, .type-color {
     color: #434343;
 }
+a {
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    text-decoration: underline;
+}
+
 .section {
     width: 100%;
 }
 .section-inner {
     width: 100%;
+}
+.max-w {
     max-width: 1200px;
 }
 .ico-feature {
@@ -27,3 +37,26 @@ body, .type-color {
     
     }
 }
+
+/*colors*/
+.bg-light-shade {
+    background-color: #ffffff;
+}
+.bg-dark-shade {
+    background-color: #434343
+}
+.bg-light-accent {
+    background-color: #e9e9e9
+}
+.bg-dark-accent {
+    background-color: #d9d9d9
+}
+.bg-brand {
+    background-color: #555555;
+    color: #d9d9d9;
+}
+.bg-brand svg {
+    fill: currentColor;
+}
+
+

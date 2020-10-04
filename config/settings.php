@@ -15,7 +15,8 @@ return static function(string $appEnv) {
         'db_database' => 'cms', 
         'db_password' => '', 
         'db_charset' => 'utf8',
-        'db_collation' => 'utf8_polish_ci'
+        'db_collation' => 'utf8_polish_ci',
+        'upl' => 'img/'
     ];
 
     if ($appEnv === 'DEVELOPMENT') {

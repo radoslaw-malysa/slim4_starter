@@ -32,7 +32,7 @@ class ContentsRepository extends Repository
             if ($content_count > 0) {
                 for ($i=0; $i < $content_count; $i++) {
                     $content[$i] = array_merge($content[$i], $this->assets->where('id_parent', $content[$i]['id'])->groupped());
-                    $content[$i]['view'] = json_decode($content[$i]['view'], true);
+                    $content[$i]['view_settings'] = json_decode($content[$i]['view_settings'], true);
                 }
             }
         }

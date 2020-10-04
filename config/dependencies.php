@@ -12,7 +12,7 @@ return static function (ContainerBuilder $containerBuilder, array $settings) {
         
         PhpRenderer::class => function (ContainerInterface $container) {
             $settings = $container->get('settings');
-            return new PhpRenderer($settings['view_path']);
+            return new PhpRenderer($settings['view_path'], ['upl' => $settings['upl']]);
         },
 
         PDO::class => function (ContainerInterface $container) {
