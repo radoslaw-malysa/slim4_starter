@@ -22,6 +22,15 @@ faq
 https://overflow.io/pricing/
 
 
+news
+https://blogs.oracle.com/covid-19/?source=:ow:o:h:po::RC_WWMK200710P00041:Database_OcomOndemand_HP_EMEA%2B:ow:off:ot:::GFooter100220
+
+
+parallax
+https://simpleparallax.com/
+https://github.com/GianlucaGuarini/parallax
+https://github.com/HarshKhandeparkar/shadowllax
+https://github.com/piersrueb/simpleParallax
 
 
 

@@ -10,22 +10,54 @@ use App\Action\Action;
 
 class PageAction extends Action
 {
+    protected $page;
+
     public function __invoke(Request $request, Response $response, $args) {
         
-        $page = $this->cms->page(['url' => $request->getUri()->getPath()]);
-        
+        $this->page = $this->cms->page(['url' => $request->getUri()->getPath()]);
+
+        if ($this->page['frame']['view']) {
+            return $this->listPage($request, $response, $args);
+        } else {
+            return $this->landingPage($request, $response, $args);
+        }
+    }
+
+    /**
+     * landing page
+     */
+    public function landingPage(Request $request, Response $response, $args) {
         $html = '';
-        if (is_array($page['contents'])) {
-            foreach ($page['contents'] as $content) {
-                $html .= $this->view->fetch($content['view'], array_merge($content, ['globals' => $page['globals']], get_object_vars($this->cms)));
+        if (is_array($this->page['contents'])) {
+            foreach ($this->page['contents'] as $content) {
+                $html .= $this->view->fetch($content['view'], array_merge($content, ['globals' => $this->page['globals']], get_object_vars($this->cms)));
             }
         }
 
         return $this->view->render($response, 'layout.php', [
             'content' => $html,
-            'meta' => $page['meta'],
-            'globals' => $page['globals']
+            'meta' => $this->page['meta'],
+            'globals' => $this->page['globals']
         ]);
     }
 
+    /**
+     * (automat) list of contents, no assets data
+     */
+    public function listPage(Request $request, Response $response, $args) {
+        $html = $this->view->fetch($this->page['frame']['view'], array_merge($this->page['frame'], ['gallery' => $this->page['contents'], 'globals' => $this->page['globals']], get_object_vars($this->cms)));
+        
+        return $this->view->render($response, 'layout.php', [
+            'content' => $html,
+            'meta' => $this->page['meta'],
+            'globals' => $this->page['globals']
+        ]);
+    }
+
+    /**
+     * (automat) one article
+     */
+    public function articlePage(Request $request, Response $response, $args) {
+
+    }
 }

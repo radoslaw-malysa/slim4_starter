@@ -3,7 +3,7 @@
 namespace App\Model\Cms;
 
 use App\Model\Repositories\GlobalsRepository;
-use App\Model\Repositories\NavsRepository;
+use App\Model\Repositories\FrameRepository;
 use App\Model\Repositories\ContentsRepository;
 use App\Model\Repositories\AssetsRepository;
 use App\Model\Repositories\MetaRepository;
@@ -16,15 +16,15 @@ class Cms
     public $content;
     public $assets;
     public $globals;
-    public $navs;
+    public $frame;
     public $meta;
     
-    public function __construct(ContentsRepository $contents, AssetsRepository $assets, NavsRepository $navs, GlobalsRepository $globals, MetaRepository $meta)
+    public function __construct(ContentsRepository $contents, AssetsRepository $assets, FrameRepository $frame, GlobalsRepository $globals, MetaRepository $meta)
     {
         $this->contents = $contents;
         $this->assets = $assets;
         $this->globals = $globals;
-        $this->navs = $navs;
+        $this->frame = $frame;
         $this->meta = $meta;
     }
 
@@ -35,15 +35,18 @@ class Cms
     public function page($params = [])
     {
         if ($params['url']) {
-            $nav = $this->navs->where('url', $params['url'])->first();
+            $frame = $this->frame->where('url', $params['url'])->first();
         }
 
-        if ($nav['id']) {
+        if ($frame['id']) {
+            $content = ($frame['view']) 
+            ? $this->contents->where('id_frame', $frame['id'])->get(['id','slug','title','subtitle','image_url','image_alt','event_date','state'], false, true) 
+            : $this->contents->where('id_frame', $frame['id'])->get();
             return [
                 'globals' => $this->globals->get(),
-                'nav' => $nav,
-                'contents' => $this->contents->where('id_nav', $nav['id'])->get(),
-                'meta' => $this->meta->where('id_nav', $nav['id'])->first()
+                'frame' => $frame,
+                'contents' => $content,
+                'meta' => $this->meta->where('id_frame', $frame['id'])->first()
             ];
         } else {
             return [];

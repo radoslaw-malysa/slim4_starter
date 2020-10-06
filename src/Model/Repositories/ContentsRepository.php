@@ -21,18 +21,27 @@ class ContentsRepository extends Repository
 
     /**
      * @param array  $columns
-     * @param bool $add_assets
+     * @param bool $join_assets
+     * @param bool $add_more_links
      */
-    public function get($columns = ['*'], $add_assets = true)
+    public function get($columns = ['*'], $join_assets = true, $add_more_links = false)
     {
         $content = parent::get($columns);
-        if ($add_assets) {
+        if ($join_assets) {
             $content_count = count($content);
-
             if ($content_count > 0) {
                 for ($i=0; $i < $content_count; $i++) {
                     $content[$i] = array_merge($content[$i], $this->assets->where('id_parent', $content[$i]['id'])->groupped());
                     $content[$i]['view_settings'] = json_decode($content[$i]['view_settings'], true);
+                }
+            }
+        }
+        if ($add_more_links) {
+            $content_count = count($content);
+            if ($content_count > 0) {
+                for ($i=0; $i < $content_count; $i++) {
+                    $content[$i]['primary_url'] = '/' . $content[$i]['slug'];
+                    $content[$i]['primary_text'] = 'Zobacz więcej';
                 }
             }
         }

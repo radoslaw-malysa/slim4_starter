@@ -9,12 +9,12 @@ use App\Model\Repositories\Repository;
 /**
  * Repository.
  */
-class NavsRepository extends Repository
+class FrameRepository extends Repository
 {
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->model = Tables::NAVS;
+        $this->model = Tables::FRAME;
     }
 
     
