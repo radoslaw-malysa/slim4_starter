@@ -12,9 +12,9 @@ class Repository
     protected $query;
 
     public $columns;
-    public $joins;
+    public $joins = [];
     public $wheres = [];
-    public $orders;
+    public $orders = [];
 
     public function select($columns = ['*'])
     {
@@ -46,7 +46,7 @@ class Repository
         $st = $this->connection->prepare($this->query);
         $st->execute();
 
-        return $st->fetchAll();
+        return $this->result($st->fetchAll());
     }
 
     public function first($columns = ['*'])
@@ -57,7 +57,7 @@ class Repository
         $st = $this->connection->prepare($this->query);
         $st->execute();
 
-        return $st->fetch();
+        return $this->result($st->fetch());
     }
 
     protected function buildSelect()
@@ -78,6 +78,7 @@ class Repository
                 $this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
             }
         }
+        //echo '<br>' . $this->query;
     }
 
     public function limit()
@@ -98,5 +99,11 @@ class Repository
     public function find($id)
     {
 
+    }
+
+    protected function result($result)
+    {
+        $this->wheres = $this->joins = $this->orders = [];
+        return $result;
     }
 }

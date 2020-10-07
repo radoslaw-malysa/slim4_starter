@@ -19,7 +19,8 @@ class AssetsRepository extends Repository
 
     public function groupped($columns = ['*'])
     {
-        $grouped = [];
+        $grouped = ['gallery' => [], 'files' => []];
+        
         foreach ($this->get($columns) as $asset) {
             $grouped[$asset['type']][] = $asset;
         }

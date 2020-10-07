@@ -10,54 +10,74 @@ use App\Action\Action;
 
 class PageAction extends Action
 {
-    protected $page;
+    protected $menu;
+    protected $globals;
+    protected $meta;
+    protected $contents;
+    protected $html = '';
 
     public function __invoke(Request $request, Response $response, $args) {
         
-        $this->page = $this->cms->page(['url' => $request->getUri()->getPath()]);
+        $this->menu = $this->cms->menu->where('slug', ltrim($request->getUri()->getPath(), '/'))->first();
 
-        if ($this->page['frame']['view']) {
-            return $this->listPage($request, $response, $args);
+        if ($this->menu) {
+            return ($this->menu['page_view']) ? $this->inView($request, $response, $args) : $this->inLayout($request, $response, $args);
         } else {
-            return $this->landingPage($request, $response, $args);
+            return $this->article($request, $response, $args);
         }
     }
 
     /**
-     * landing page
+     * render contents templates in layout
      */
-    public function landingPage(Request $request, Response $response, $args) {
-        $html = '';
-        if (is_array($this->page['contents'])) {
-            foreach ($this->page['contents'] as $content) {
-                $html .= $this->view->fetch($content['view'], array_merge($content, ['globals' => $this->page['globals']], get_object_vars($this->cms)));
+    public function inLayout(Request $request, Response $response, $args) {
+        $this->globals = $this->cms->globals->get();
+        $this->meta = $this->cms->meta->get();
+        $this->contents = $this->cms->contents->where('id_menu', $this->menu['id'])->get();
+        
+        if (is_array($this->contents)) {
+            foreach ($this->contents as $content) {
+                $this->html .= $this->view->fetch(($content['view']) ? $content['view'] : $this->default_template(), array_merge($content, get_object_vars($this)));
             }
         }
 
-        return $this->view->render($response, 'layout.php', [
-            'content' => $html,
-            'meta' => $this->page['meta'],
-            'globals' => $this->page['globals']
-        ]);
+        return $this->view->render($response, 'layout.php', get_object_vars($this));
     }
 
     /**
-     * (automat) list of contents, no assets data
+     * inject contents into parent template as gallery, no assets data
      */
-    public function listPage(Request $request, Response $response, $args) {
-        $html = $this->view->fetch($this->page['frame']['view'], array_merge($this->page['frame'], ['gallery' => $this->page['contents'], 'globals' => $this->page['globals']], get_object_vars($this->cms)));
+    public function inView(Request $request, Response $response, $args) {
+        $this->globals = $this->cms->globals->get();
+        $this->meta = $this->cms->meta->get();
+        $this->contents = $this->cms->contents->where('id_menu', $this->menu['id'])->get(['id','slug','title','subtitle','image_url','image_alt','event_date','state'], false, true);
         
-        return $this->view->render($response, 'layout.php', [
-            'content' => $html,
-            'meta' => $this->page['meta'],
-            'globals' => $this->page['globals']
-        ]);
+        $this->html = $this->view->fetch($this->menu['page_view'], array_merge($this->menu, ['gallery' => $this->contents], get_object_vars($this)));
+        
+        return $this->view->render($response, 'layout.php', get_object_vars($this));
     }
 
     /**
-     * (automat) one article
+     * render article page
      */
-    public function articlePage(Request $request, Response $response, $args) {
+    public function article(Request $request, Response $response, $args) {
+        $this->contents =  $this->cms->contents->where('slug', ltrim($request->getUri()->getPath(), '/'))->get();
+        if ($this->contents) {
+            $this->menu = ($this->contents[0]['id_menu']) ? $this->cms->menu->where('id', $this->contents[0]['id_menu'])->first() : [];
+            
+            if (is_array($this->contents)) {
+                foreach ($this->contents as $content) {
+                    $this->html .= $this->view->fetch(($content['view']) ? $content['view'] : $this->default_template(), array_merge($content, get_object_vars($this)));
+                }
+            }
 
+            return $this->view->render($response, 'layout.php', get_object_vars($this));
+        } else {
+
+        }
+    }
+
+    protected function default_template() {
+        return ($this->menu['view']) ? $this->menu['view'] : 'default.php';
     }
 }

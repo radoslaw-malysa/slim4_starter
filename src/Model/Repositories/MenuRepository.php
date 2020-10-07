@@ -9,12 +9,12 @@ use App\Model\Repositories\Repository;
 /**
  * Repository.
  */
-class FrameRepository extends Repository
+class MenuRepository extends Repository
 {
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->model = Tables::FRAME;
+        $this->model = Tables::MENU;
     }
 
     
