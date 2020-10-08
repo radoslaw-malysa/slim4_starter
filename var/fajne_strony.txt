@@ -38,3 +38,9 @@ https://github.com/piersrueb/simpleParallax
 proj
 
 https://codepen.io/ricardona/full/JKgWdP
+
+salesforce crm collections
+https://help.salesforce.com/articleView?id=rss_cms_collection.htm&type=0
+
+nyt
+https://www.nytimes.com/2020/10/08/sports/tennis/french-open-womens-semifinals-iga-swiatek-sofia-kenin-petra-kvitova.html

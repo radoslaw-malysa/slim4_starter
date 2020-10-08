@@ -10,7 +10,7 @@ use App\Action\Action;
 
 class PageAction extends Action
 {
-    protected $menu;
+    protected $collection;
     protected $globals;
     protected $meta;
     protected $contents;
@@ -18,10 +18,10 @@ class PageAction extends Action
 
     public function __invoke(Request $request, Response $response, $args) {
         
-        $this->menu = $this->cms->menu->where('slug', ltrim($request->getUri()->getPath(), '/'))->first();
+        $this->collection = $this->cms->collections->where('slug', ltrim($request->getUri()->getPath(), '/'))->first();
 
-        if ($this->menu) {
-            return ($this->menu['page_view']) ? $this->inView($request, $response, $args) : $this->inLayout($request, $response, $args);
+        if ($this->collection) {
+            return ($this->collection['page_view']) ? $this->inView($request, $response, $args) : $this->inLayout($request, $response, $args);
         } else {
             return $this->article($request, $response, $args);
         }
@@ -33,7 +33,7 @@ class PageAction extends Action
     public function inLayout(Request $request, Response $response, $args) {
         $this->globals = $this->cms->globals->get();
         $this->meta = $this->cms->meta->get();
-        $this->contents = $this->cms->contents->where('id_menu', $this->menu['id'])->get();
+        $this->contents = $this->cms->contents->where('id_collection', $this->collection['id'])->get();
         
         if (is_array($this->contents)) {
             foreach ($this->contents as $content) {
@@ -50,9 +50,9 @@ class PageAction extends Action
     public function inView(Request $request, Response $response, $args) {
         $this->globals = $this->cms->globals->get();
         $this->meta = $this->cms->meta->get();
-        $this->contents = $this->cms->contents->where('id_menu', $this->menu['id'])->get(['id','slug','title','subtitle','image_url','image_alt','event_date','state'], false, true);
+        $this->contents = $this->cms->contents->where('id_collection', $this->collection['id'])->get(['id','slug','title','subtitle','image_url','image_alt','event_date','state'], false, true);
         
-        $this->html = $this->view->fetch($this->menu['page_view'], array_merge($this->menu, ['gallery' => $this->contents], get_object_vars($this)));
+        $this->html = $this->view->fetch($this->collection['page_view'], array_merge($this->collection, ['gallery' => $this->contents], get_object_vars($this)));
         
         return $this->view->render($response, 'layout.php', get_object_vars($this));
     }
@@ -63,7 +63,7 @@ class PageAction extends Action
     public function article(Request $request, Response $response, $args) {
         $this->contents =  $this->cms->contents->where('slug', ltrim($request->getUri()->getPath(), '/'))->get();
         if ($this->contents) {
-            $this->menu = ($this->contents[0]['id_menu']) ? $this->cms->menu->where('id', $this->contents[0]['id_menu'])->first() : [];
+            $this->collection = ($this->contents[0]['id_collection']) ? $this->cms->collections->where('id', $this->contents[0]['id_collection'])->first() : [];
             
             if (is_array($this->contents)) {
                 foreach ($this->contents as $content) {
@@ -78,6 +78,6 @@ class PageAction extends Action
     }
 
     protected function default_template() {
-        return ($this->menu['view']) ? $this->menu['view'] : 'default.php';
+        return ($this->collection['view']) ? $this->collection['view'] : 'default.php';
     }
 }
