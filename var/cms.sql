@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 08 Paź 2020, 23:58
--- Wersja serwera: 10.1.37-MariaDB
--- Wersja PHP: 7.3.0
+-- Czas generowania: 20 Paź 2020, 16:04
+-- Wersja serwera: 10.1.38-MariaDB
+-- Wersja PHP: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -63,43 +63,12 @@ INSERT INTO `assets` (`id`, `id_parent`, `title`, `subtitle`, `lead`, `content`,
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `collections`
---
-
-CREATE TABLE `collections` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `id_parent` int(10) UNSIGNED NOT NULL,
-  `model` varchar(24) COLLATE utf8_polish_ci NOT NULL DEFAULT 'contents',
-  `title` varchar(128) COLLATE utf8_polish_ci NOT NULL,
-  `slug` varchar(128) COLLATE utf8_polish_ci NOT NULL,
-  `hidden` tinyint(1) UNSIGNED NOT NULL,
-  `access` tinyint(1) UNSIGNED NOT NULL,
-  `ord` smallint(5) UNSIGNED NOT NULL,
-  `page_view` varchar(32) COLLATE utf8_polish_ci NOT NULL,
-  `page_view_settings` varchar(512) COLLATE utf8_polish_ci NOT NULL,
-  `view` varchar(32) COLLATE utf8_polish_ci NOT NULL,
-  `view_settings` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
-  `layout` varchar(32) COLLATE utf8_polish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
-
---
--- Zrzut danych tabeli `collections`
---
-
-INSERT INTO `collections` (`id`, `id_parent`, `model`, `title`, `slug`, `hidden`, `access`, `ord`, `page_view`, `page_view_settings`, `view`, `view_settings`, `layout`) VALUES
-(1, 0, 'contents', 'Home', '', 0, 0, 1, '', '', '', '', ''),
-(2, 0, 'contents', 'O nas', 'o-nas', 0, 0, 1, '', '', '', '', ''),
-(3, 0, 'contents', 'Aktualności', 'aktualnosci', 0, 0, 3, 'news/news.php', '', 'features/features.php', '', '');
-
--- --------------------------------------------------------
-
---
 -- Struktura tabeli dla tabeli `contents`
 --
 
 CREATE TABLE `contents` (
   `id` int(10) UNSIGNED NOT NULL,
-  `id_collection` int(10) UNSIGNED NOT NULL,
+  `id_page` int(10) UNSIGNED NOT NULL,
   `slug` varchar(128) COLLATE utf8_polish_ci NOT NULL,
   `title` varchar(128) COLLATE utf8_polish_ci NOT NULL,
   `subtitle` varchar(512) COLLATE utf8_polish_ci NOT NULL,
@@ -125,7 +94,7 @@ CREATE TABLE `contents` (
 -- Zrzut danych tabeli `contents`
 --
 
-INSERT INTO `contents` (`id`, `id_collection`, `slug`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `view`, `view_settings`, `update_time`, `update_ip`, `update_user`) VALUES
+INSERT INTO `contents` (`id`, `id_page`, `slug`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `view`, `view_settings`, `update_time`, `update_ip`, `update_user`) VALUES
 (1, 1, 'why', 'Why Choose Us', 'Still have some hesitations whether cooperation with us is worth the trouble? Check the reasons why you should choose us among other companies!', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, 'features/features.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
 (3, 1, 'tytul-strony', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, 'features_full/features_full.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
 (4, 1, 'tytul-strony-sdf', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, 'projects/projects.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
@@ -186,6 +155,37 @@ CREATE TABLE `meta` (
 INSERT INTO `meta` (`id`, `id_frame`, `title`, `description`, `canonical`, `og_type`, `og_title`, `og_description`, `og_url`, `og_site_name`, `og_locale`, `og_locale_alternate`, `og_image`, `og_image_width`, `og_image_height`) VALUES
 (1, 1, 'Meta tytuł strony', 'Meta opis strony', '', '', '', '', '', '', '', '', '', '', '');
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `pages`
+--
+
+CREATE TABLE `pages` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_parent` int(10) UNSIGNED NOT NULL,
+  `model` varchar(24) COLLATE utf8_polish_ci NOT NULL DEFAULT 'contents',
+  `title` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `slug` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `hidden` tinyint(1) UNSIGNED NOT NULL,
+  `access` tinyint(1) UNSIGNED NOT NULL,
+  `ord` smallint(5) UNSIGNED NOT NULL,
+  `page_view` varchar(32) COLLATE utf8_polish_ci NOT NULL,
+  `page_view_settings` varchar(512) COLLATE utf8_polish_ci NOT NULL,
+  `view` varchar(32) COLLATE utf8_polish_ci NOT NULL,
+  `view_settings` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
+  `layout` varchar(32) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `pages`
+--
+
+INSERT INTO `pages` (`id`, `id_parent`, `model`, `title`, `slug`, `hidden`, `access`, `ord`, `page_view`, `page_view_settings`, `view`, `view_settings`, `layout`) VALUES
+(1, 0, 'contents', 'Home', '', 0, 0, 1, '', '', '', '', ''),
+(2, 0, 'contents', 'O nas', 'o-nas', 0, 0, 1, '', '', '', '', ''),
+(3, 0, 'contents', 'Aktualności', 'aktualnosci', 0, 0, 3, 'news/news.php', '', 'features/features.php', '', '');
+
 --
 -- Indeksy dla zrzutów tabel
 --
@@ -200,14 +200,6 @@ ALTER TABLE `assets`
   ADD KEY `event_date` (`event_date`);
 
 --
--- Indeksy dla tabeli `collections`
---
-ALTER TABLE `collections`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `slug` (`slug`),
-  ADD KEY `id_parent` (`id_parent`);
-
---
 -- Indeksy dla tabeli `contents`
 --
 ALTER TABLE `contents`
@@ -215,7 +207,7 @@ ALTER TABLE `contents`
   ADD UNIQUE KEY `slug` (`slug`),
   ADD KEY `ord` (`ord`),
   ADD KEY `event_date` (`event_date`),
-  ADD KEY `id_collection` (`id_collection`);
+  ADD KEY `id_page` (`id_page`);
 
 --
 -- Indeksy dla tabeli `globals`
@@ -231,6 +223,14 @@ ALTER TABLE `meta`
   ADD UNIQUE KEY `id_frame` (`id_frame`);
 
 --
+-- Indeksy dla tabeli `pages`
+--
+ALTER TABLE `pages`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `slug` (`slug`),
+  ADD KEY `id_parent` (`id_parent`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -238,12 +238,6 @@ ALTER TABLE `meta`
 -- AUTO_INCREMENT dla tabeli `assets`
 --
 ALTER TABLE `assets`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT dla tabeli `collections`
---
-ALTER TABLE `collections`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
@@ -263,6 +257,12 @@ ALTER TABLE `globals`
 --
 ALTER TABLE `meta`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT dla tabeli `pages`
+--
+ALTER TABLE `pages`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

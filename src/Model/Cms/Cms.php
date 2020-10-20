@@ -3,7 +3,7 @@
 namespace App\Model\Cms;
 
 use App\Model\Repositories\GlobalsRepository;
-use App\Model\Repositories\CollectionsRepository;
+use App\Model\Repositories\PagesRepository;
 use App\Model\Repositories\ContentsRepository;
 use App\Model\Repositories\AssetsRepository;
 use App\Model\Repositories\MetaRepository;
@@ -16,15 +16,15 @@ class Cms
     public $content;
     public $assets;
     public $globals;
-    public $collections;
+    public $pages;
     public $meta;
     
-    public function __construct(ContentsRepository $contents, AssetsRepository $assets, CollectionsRepository $collections, GlobalsRepository $globals, MetaRepository $meta)
+    public function __construct(ContentsRepository $contents, AssetsRepository $assets, PagesRepository $pages, GlobalsRepository $globals, MetaRepository $meta)
     {
         $this->contents = $contents;
         $this->assets = $assets;
         $this->globals = $globals;
-        $this->collections = $collections;
+        $this->pages = $pages;
         $this->meta = $meta;
     }
 

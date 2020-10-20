@@ -9,12 +9,12 @@ use App\Model\Repositories\Repository;
 /**
  * Repository.
  */
-class CollectionsRepository extends Repository
+class PagesRepository extends Repository
 {
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->model = Tables::COLLECTIONS;
+        $this->model = Tables::PAGES;
     }
 
     
