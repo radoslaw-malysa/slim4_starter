@@ -45,7 +45,7 @@ class PageAction extends Action
     }
 
     /**
-     * inject contents into parent template as gallery, no assets data
+     * inject contents into parent template as gallery, assets not included
      */
     public function inView(Request $request, Response $response, $args) {
         $this->globals = $this->cms->globals->get();
