@@ -28,7 +28,7 @@ class PageAction extends Action
     }
 
     /**
-     * render contents templates in layout
+     * render components
      */
     public function inLayout(Request $request, Response $response, $args) {
         $this->globals = $this->cms->globals->get();
