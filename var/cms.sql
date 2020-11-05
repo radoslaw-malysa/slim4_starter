@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 20 Paź 2020, 16:04
+-- Czas generowania: 05 Lis 2020, 15:54
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -83,6 +83,7 @@ CREATE TABLE `contents` (
   `event_date` date NOT NULL,
   `ord` int(10) UNSIGNED NOT NULL,
   `state` tinyint(3) UNSIGNED NOT NULL,
+  `related` varchar(128) COLLATE utf8_polish_ci NOT NULL,
   `view` varchar(32) COLLATE utf8_polish_ci NOT NULL,
   `view_settings` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
   `update_time` datetime NOT NULL,
@@ -94,14 +95,29 @@ CREATE TABLE `contents` (
 -- Zrzut danych tabeli `contents`
 --
 
-INSERT INTO `contents` (`id`, `id_page`, `slug`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `view`, `view_settings`, `update_time`, `update_ip`, `update_user`) VALUES
-(1, 1, 'why', 'Why Choose Us', 'Still have some hesitations whether cooperation with us is worth the trouble? Check the reasons why you should choose us among other companies!', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, 'features/features.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
-(3, 1, 'tytul-strony', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, 'features_full/features_full.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
-(4, 1, 'tytul-strony-sdf', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, 'projects/projects.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
-(5, 3, 'good-news-q', 'Good news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '0000-00-00 00:00:00', '', 0),
-(6, 3, 'bad-news-w', 'Bad news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '0000-00-00 00:00:00', '', 0),
-(7, 3, 'good-news-sd', 'Good news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '0000-00-00 00:00:00', '', 0),
-(8, 3, 'very-bad-news', 'Very bad news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '0000-00-00 00:00:00', '', 0);
+INSERT INTO `contents` (`id`, `id_page`, `slug`, `title`, `subtitle`, `lead`, `content`, `image_url`, `image_alt`, `primary_url`, `primary_text`, `secondary_url`, `secondary_text`, `event_date`, `ord`, `state`, `related`, `view`, `view_settings`, `update_time`, `update_ip`, `update_user`) VALUES
+(1, 1, 'why', 'Why Choose Us', 'Still have some hesitations whether cooperation with us is worth the trouble? Check the reasons why you should choose us among other companies!', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, '', 'features/features.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
+(3, 1, 'tytul-strony', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, '', 'features_full/features_full.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
+(4, 1, 'tytul-strony-sdf', 'Tytuł strony', '', '', '', '', '', '', '', '', '', '0000-00-00', 0, 0, '', 'projects/projects.php', '{\r\n    \"layout\": {\r\n        \"title\": \"\",\r\n        \"subtitle\": \"\",\r\n        \"lead\": \"\",\r\n        \"content\": \"\",\r\n        \"image\": \"\",\r\n        \"date\": \"\",\r\n        \"primary-button\": \"\",\r\n        \"secondary-button\": \"\",\r\n        \"align\": \"left\"\r\n    },\r\n    \"background\": {\r\n        \"color\": \"\",\r\n        \"image\": \"\",\r\n        \"flip\": \"\",\r\n        \"overlay\": \"\",\r\n        \"scroll-effect\": \"fixed/parallax\"\r\n    },\r\n    \"animation\": {\r\n        \"appear\": \"fadein/slidein\",\r\n        \"appear-speed\": \"slow/normal/fast\"\r\n    },\r\n    \"info\": {\r\n        \"anchor\": \"\"\r\n    }\r\n}', '0000-00-00 00:00:00', '', 0),
+(5, 3, 'good-news-q', 'Good news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '', '0000-00-00 00:00:00', '', 0),
+(6, 3, 'bad-news-w', 'Bad news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '', '0000-00-00 00:00:00', '', 0),
+(7, 3, 'good-news-sd', 'Good news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '', '0000-00-00 00:00:00', '', 0),
+(8, 3, 'very-bad-news', 'Very bad news', 'A taxonomy is a system of classifying data around a set of unique characteristics. Scientists have been using this system for years, grouping all living creatures into Kingdoms, Class, Species and so on.', '', 'Each collection defines which taxonomies are part of its content model in their blueprint. Thus, taxonomies and their terms are connected to entries through the collection in a strict relationship. Once you attach a taxonomy to a collection, the fields, variables, and routes are added automatically.', 'add_photo.svg', '', '', '', '', '', '0000-00-00', 0, 0, '', '', '', '0000-00-00 00:00:00', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `factors`
+--
+
+CREATE TABLE `factors` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_topic` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `ord` tinyint(3) UNSIGNED NOT NULL,
+  `key_factor` tinyint(1) NOT NULL,
+  `type` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
 
@@ -186,6 +202,38 @@ INSERT INTO `pages` (`id`, `id_parent`, `model`, `title`, `slug`, `hidden`, `acc
 (2, 0, 'contents', 'O nas', 'o-nas', 0, 0, 1, '', '', '', '', ''),
 (3, 0, 'contents', 'Aktualności', 'aktualnosci', 0, 0, 3, 'news/news.php', '', 'features/features.php', '', '');
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `scenarios`
+--
+
+CREATE TABLE `scenarios` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_topic` int(10) UNSIGNED NOT NULL,
+  `title` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `subtitle` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
+  `ord` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `topics`
+--
+
+CREATE TABLE `topics` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `topics`
+--
+
+INSERT INTO `topics` (`id`, `title`) VALUES
+(1, 'Czy druk 3D ma przyszłość?');
+
 --
 -- Indeksy dla zrzutów tabel
 --
@@ -210,6 +258,13 @@ ALTER TABLE `contents`
   ADD KEY `id_page` (`id_page`);
 
 --
+-- Indeksy dla tabeli `factors`
+--
+ALTER TABLE `factors`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_topic` (`id_topic`);
+
+--
 -- Indeksy dla tabeli `globals`
 --
 ALTER TABLE `globals`
@@ -231,6 +286,18 @@ ALTER TABLE `pages`
   ADD KEY `id_parent` (`id_parent`);
 
 --
+-- Indeksy dla tabeli `scenarios`
+--
+ALTER TABLE `scenarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeksy dla tabeli `topics`
+--
+ALTER TABLE `topics`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -245,6 +312,12 @@ ALTER TABLE `assets`
 --
 ALTER TABLE `contents`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT dla tabeli `factors`
+--
+ALTER TABLE `factors`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT dla tabeli `globals`
@@ -263,6 +336,18 @@ ALTER TABLE `meta`
 --
 ALTER TABLE `pages`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT dla tabeli `scenarios`
+--
+ALTER TABLE `scenarios`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT dla tabeli `topics`
+--
+ALTER TABLE `topics`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
