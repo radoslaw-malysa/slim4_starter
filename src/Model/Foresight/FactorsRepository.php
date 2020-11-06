@@ -9,12 +9,12 @@ use App\Model\Repositories\Repository;
 /**
  * Repository.
  */
-class TopicsRepository extends Repository
+class FactorsRepository extends Repository
 {
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->model = Tables::TOPICS;
+        $this->model = Tables::FACTORS;
     }
 
     

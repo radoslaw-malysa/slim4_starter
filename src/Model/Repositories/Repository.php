@@ -30,7 +30,7 @@ class Repository
             $value = $operator;
             $operator = '=';
         }
-
+        
         $this->wheres[] = compact(
             'column', 'operator', 'value', 'boolean'
         );
@@ -106,4 +106,47 @@ class Repository
         $this->wheres = $this->joins = $this->orders = [];
         return $result;
     }
+
+    public function save($data)
+    {
+        if ($data['id']) {
+            return $this->update($data);
+        } else {
+            return $this->insert($data);
+        }
+    }
+
+    public function insert($data)
+    {
+        $placeholders = substr(str_repeat('?,', count($data)), 0, -1);
+        $this->query = "INSERT INTO " . $this->model . " (" . implode(',', array_keys($data)) . " VALUES (" . $placeholders . ")";
+        $st = $this->connection->prepare($this->query);
+        $st->execute(array_values($data));
+
+        return $st->lastInsertId();
+
+        //$this->guery = "INSERT INTO " . $this->model . " (" . implode(', ', array_keys($data)) . ") VALUES (" . implode(', ', array_values($data)) . ")";
+    }
+
+    public function update($data)
+    {
+        $this->query = "UPDATE " . $this->model . " SET " . implode(", ", array_map(function($v){ return "$v=?"; }, array_keys($data))); //. " WHERE email = ?"
+
+        if (count($this->wheres) > 0) {
+            $this->query .= ' where ';
+
+            foreach ($this->wheres as $key => $where) {
+                $this->query .= ($key > 0) ? $where['boolean'] . ' ': '';
+                $this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
+            }
+        }
+        
+        $st = $this->connection->prepare($this->query);
+        $st->execute(array_values($data));
+
+        return true;
+        //implode(", ", array_map(function($v){ return "$v=?"; }, array_keys($first)));
+    }
+
+    //https://websitebeaver.com/php-pdo-prepared-statements-to-prevent-sql-injection
 }
