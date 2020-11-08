@@ -107,23 +107,15 @@ class Repository
         return $result;
     }
 
-    public function save($data)
-    {
-        if ($data['id']) {
-            return $this->update($data);
-        } else {
-            return $this->insert($data);
-        }
-    }
-
     public function insert($data)
     {
         $placeholders = substr(str_repeat('?,', count($data)), 0, -1);
-        $this->query = "INSERT INTO " . $this->model . " (" . implode(',', array_keys($data)) . " VALUES (" . $placeholders . ")";
+        $this->query = "INSERT INTO " . $this->model . " (" . implode(',', array_keys($data)) . ") VALUES (" . $placeholders . ")";
+        
         $st = $this->connection->prepare($this->query);
         $st->execute(array_values($data));
-
-        return $st->lastInsertId();
+        
+        return $this->connection->lastInsertId();
 
         //$this->guery = "INSERT INTO " . $this->model . " (" . implode(', ', array_keys($data)) . ") VALUES (" . implode(', ', array_values($data)) . ")";
     }
@@ -143,8 +135,9 @@ class Repository
         
         $st = $this->connection->prepare($this->query);
         $st->execute(array_values($data));
-
-        return true;
+        
+        return $this->result(true);
+        
         //implode(", ", array_map(function($v){ return "$v=?"; }, array_keys($first)));
     }
 

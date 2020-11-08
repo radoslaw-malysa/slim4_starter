@@ -43,29 +43,29 @@ class ForesightApiAction
         $data = $request->getParsedBody();
 
 
-        $payload = json_encode($data);
+        /*$payload = json_encode($data);
             $response->getBody()->write($payload);
             return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withHeader('Access-Control-Allow-Origin', 'http://mysite')
                 ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); exit;
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); exit;*/
 
 
         
-        //$data = ['id'=>1, 'id_topic'=> 1, 'title'=>'dupa', 'ord' =>'1', 'type'=>'1'];
+        //$data = ['id'=>'16', 'id_topic'=> 1, 'title'=>'dupa', 'ord' =>'1', 'type'=>'1'];
         
         if ($data['id_topic']) {
             if ($data['id']) {
                 $this->factors
-                ->where('id', 1)
+                ->where('id', $data['id'])
                 ->update([
                     'title' => $data['title'],
                     'ord' => $data['ord']
                 ]);
             } else {
                 $this->factors->insert([
-                    'id_topic' => $data['id_toppic'],
+                    'id_topic' => $data['id_topic'],
                     'title' => $data['title'],
                     'ord' => $data['ord'],
                     'key_factor' => '0',
@@ -73,7 +73,7 @@ class ForesightApiAction
                 ]);
             }
             
-            return getTopic($request, $response, ['id' => $data['id_topic']]);
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
         } else {
             $payload = json_encode(['error' => 1]);
             $response->getBody()->write($payload);
