@@ -85,6 +85,35 @@ class ForesightApiAction
         }
     }
 
+    public function updateKeyFactors(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+
+
+        /*$payload = json_encode($data);
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withHeader('Access-Control-Allow-Origin', 'http://mysite')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); exit;*/
+
+        
+        if ($data['id_topic']) {
+            $this->factors->where('key_factor', '1')->update(['key_factor' => '0']);
+            $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            $payload = json_encode(['error' => 1]);
+            $response->getBody()->write($payload);
+            return $response
+                ->withHeader('Content-Type', 'application/json')
+                ->withHeader('Access-Control-Allow-Origin', 'http://mysite')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        }
+    }
+
    //"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" Files (x86)\Google\Chrome\Application\chrome.exe --disable-web-security --user-data-dir="C:/ChromeDevSession"
-   
+
 }

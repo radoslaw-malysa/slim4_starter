@@ -17,5 +17,4 @@ class FactorsRepository extends Repository
         $this->model = Tables::FACTORS;
     }
 
-    
 }

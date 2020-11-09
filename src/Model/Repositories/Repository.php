@@ -26,6 +26,7 @@ class Repository
 
     public function where($column, $operator = null, $value = null, $boolean = 'and')
     {
+        
         if (func_num_args() === 2) {
             $value = $operator;
             $operator = '=';
@@ -75,6 +76,7 @@ class Repository
 
             foreach ($this->wheres as $key => $where) {
                 $this->query .= ($key > 0) ? $where['boolean'] . ' ': '';
+                
                 $this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
             }
         }
@@ -123,13 +125,15 @@ class Repository
     public function update($data)
     {
         $this->query = "UPDATE " . $this->model . " SET " . implode(", ", array_map(function($v){ return "$v=?"; }, array_keys($data))); //. " WHERE email = ?"
-
+        
         if (count($this->wheres) > 0) {
             $this->query .= ' where ';
 
             foreach ($this->wheres as $key => $where) {
                 $this->query .= ($key > 0) ? $where['boolean'] . ' ': '';
-                $this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
+
+                $this->query .= ($where['operator'] == 'IN') ? $where['column'] . ' ' . $where['operator'] . "('" . implode("','", $where['value']) . "') " : $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
+                //$this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
             }
         }
         
