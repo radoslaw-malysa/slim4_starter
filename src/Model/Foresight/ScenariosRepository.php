@@ -14,7 +14,7 @@ class ScenariosRepository extends Repository
     public function __construct(PDO $connection)
     {
         $this->connection = $connection;
-        $this->model = Tables::PAGES;
+        $this->model = Tables::SCENARIOS;
     }
 
     

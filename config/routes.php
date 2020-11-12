@@ -15,6 +15,7 @@ return function (App $app) {
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
     $app->any('/api/update_factor', ForesightApiAction::class . ':updateFactor');
     $app->any('/api/update_key_factors', ForesightApiAction::class . ':updateKeyFactors');
+    $app->any('/api/update_scenario', ForesightApiAction::class . ':updateScenario');
     
     $app->get('/[{name}]', PageAction::class);
     
