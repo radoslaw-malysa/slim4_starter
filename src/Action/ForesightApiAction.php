@@ -100,13 +100,15 @@ class ForesightApiAction
                 ->where('id', $data['id'])
                 ->update([
                     'title' => $data['title'],
-                    'ord' => $data['ord']
+                    'ord' => $data['ord'],
+                    'factors' => $data['factors']
                 ]);
             } else {
                 $this->scenarios->insert([
                     'id_topic' => $data['id_topic'],
                     'title' => $data['title'],
-                    'ord' => $data['ord']
+                    'ord' => $data['ord'],
+                    'factors' => $data['factors']
                 ]);
             }
             
