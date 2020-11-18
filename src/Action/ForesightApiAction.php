@@ -81,10 +81,11 @@ class ForesightApiAction
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); exit;*/
 
         
-        if ($data['id_topic']) {
+        if (isset($data['id_topic'])) {
             $this->factors->where('key_factor', '1')->update(['key_factor' => '0']);
-            $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
-            
+            if (isset($data['id'])) {
+                $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
+            }
             return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
         } else {
             return $this->errorResponse($request, $response, []);
