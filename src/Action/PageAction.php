@@ -80,4 +80,21 @@ class PageAction extends Action
     protected function default_template() {
         return ($this->page['view']) ? $this->page['view'] : 'default.php';
     }
+
+    /**
+     * foresight topic
+     */
+    public function fsTopic(Request $request, Response $response, $args) {
+        /*$this->globals = $this->cms->globals->get();
+        $this->meta = $this->cms->meta->get();
+        $this->contents = $this->cms->contents->where('id_page', $this->page['id'])->get();
+        
+        if (is_array($this->contents)) {
+            foreach ($this->contents as $content) {
+                $this->html .= $this->view->fetch(($content['view']) ? $content['view'] : $this->default_template(), array_merge($content, get_object_vars($this)));
+            }
+        }*/
+
+        return $this->view->render($response, 'scenariusze.html');
+    }
 }

@@ -44,7 +44,7 @@ class ForesightApiAction
     public function updateFactor(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         
-        if ($data['id_topic']) {
+        if (isset($data['id_topic'])) {
             if ($data['id']) {
                 $this->factors
                 ->where('id', $data['id'])
@@ -61,6 +61,22 @@ class ForesightApiAction
                     'type' => $data['type']
                 ]);
             }
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            return $this->errorResponse($request, $response, []);
+        }
+    }
+
+    public function deleteFactor(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        if (isset($data['id_topic'])) {
+            if (isset($data['id'])) {
+                $this->factors
+                ->where('id', $data['id'])
+                ->delete();
+            } 
             
             return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
         } else {
@@ -95,19 +111,23 @@ class ForesightApiAction
     public function updateScenario(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         
-        if ($data['id_topic']) {
-            if ($data['id']) {
+        if (isset($data['id_topic'])) {
+            if (isset($data['id'])) {
                 $this->scenarios
                 ->where('id', $data['id'])
                 ->update([
                     'title' => $data['title'],
-                    'ord' => $data['ord']
+                    'content' => $data['content'],
+                    'ord' => $data['ord'],
+                    'factors' => $data['factors']
                 ]);
             } else {
                 $this->scenarios->insert([
                     'id_topic' => $data['id_topic'],
                     'title' => $data['title'],
-                    'ord' => $data['ord']
+                    'content' => $data['content'],
+                    'ord' => $data['ord'],
+                    'factors' => $data['factors']
                 ]);
             }
             
