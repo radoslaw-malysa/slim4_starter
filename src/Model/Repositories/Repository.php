@@ -145,5 +145,25 @@ class Repository
         //implode(", ", array_map(function($v){ return "$v=?"; }, array_keys($first)));
     }
 
+    public function delete()
+    {
+        $this->query = "DELETE FROM " . $this->model;
+        
+        if (count($this->wheres) > 0) {
+            $this->query .= ' where ';
+
+            foreach ($this->wheres as $key => $where) {
+                $this->query .= ($key > 0) ? $where['boolean'] . ' ': '';
+
+                $this->query .= ($where['operator'] == 'IN') ? $where['column'] . ' ' . $where['operator'] . "('" . implode("','", $where['value']) . "') " : $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
+            }
+        }
+        
+        $st = $this->connection->prepare($this->query);
+        $st->execute();
+        
+        return $this->result(true);
+    }
+
     //https://websitebeaver.com/php-pdo-prepared-statements-to-prevent-sql-injection
 }

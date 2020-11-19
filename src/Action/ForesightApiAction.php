@@ -44,7 +44,7 @@ class ForesightApiAction
     public function updateFactor(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         
-        if ($data['id_topic']) {
+        if (isset($data['id_topic'])) {
             if ($data['id']) {
                 $this->factors
                 ->where('id', $data['id'])
@@ -68,6 +68,22 @@ class ForesightApiAction
         }
     }
 
+    public function deleteFactor(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        if (isset($data['id_topic'])) {
+            if (isset($data['id'])) {
+                $this->factors
+                ->where('id', $data['id'])
+                ->delete();
+            } 
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            return $this->errorResponse($request, $response, []);
+        }
+    }
+
     public function updateKeyFactors(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
 
@@ -81,10 +97,11 @@ class ForesightApiAction
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); exit;*/
 
         
-        if ($data['id_topic']) {
+        if (isset($data['id_topic'])) {
             $this->factors->where('key_factor', '1')->update(['key_factor' => '0']);
-            $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
-            
+            if (isset($data['id'])) {
+                $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
+            }
             return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
         } else {
             return $this->errorResponse($request, $response, []);
@@ -94,12 +111,13 @@ class ForesightApiAction
     public function updateScenario(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         
-        if ($data['id_topic']) {
-            if ($data['id']) {
+        if (isset($data['id_topic'])) {
+            if (isset($data['id'])) {
                 $this->scenarios
                 ->where('id', $data['id'])
                 ->update([
                     'title' => $data['title'],
+                    'content' => $data['content'],
                     'ord' => $data['ord'],
                     'factors' => $data['factors']
                 ]);
@@ -107,6 +125,7 @@ class ForesightApiAction
                 $this->scenarios->insert([
                     'id_topic' => $data['id_topic'],
                     'title' => $data['title'],
+                    'content' => $data['content'],
                     'ord' => $data['ord'],
                     'factors' => $data['factors']
                 ]);
