@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return static function(string $appEnv) {
     //dev
-    /*$settings =  [
+    $settings =  [
         'app_env' => $appEnv,
         'di_compilation_path' => __DIR__ . '/../var/cache',
         'display_error_details' => false,
@@ -18,10 +18,10 @@ return static function(string $appEnv) {
         'db_charset' => 'utf8',
         'db_collation' => 'utf8_polish_ci',
         'upl' => 'img/'
-    ];*/
+    ];
 
     //prod
-    $settings =  [
+    /*$settings =  [
         'app_env' => $appEnv,
         'di_compilation_path' => __DIR__ . '/../var/cache',
         'display_error_details' => false,
@@ -35,7 +35,7 @@ return static function(string $appEnv) {
         'db_charset' => 'utf8',
         'db_collation' => 'utf8_polish_ci',
         'upl' => 'img/'
-    ];
+    ];*/
 
     if ($appEnv === 'DEVELOPMENT') {
         // Overrides for development mode

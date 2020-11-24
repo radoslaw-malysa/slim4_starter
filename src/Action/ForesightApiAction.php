@@ -41,6 +41,38 @@ class ForesightApiAction
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     }
 
+    public function updateTopic(Request $request, Response $response, $args) {
+        
+        $data = $request->getParsedBody();
+        
+        if ($data['title']) {
+            if (isset($data['id'])) {
+                $this->topics
+                ->where('id', $data['id'])
+                ->update([
+                    'title' => $data['title'],
+                    'time_horizon' => $data['time_horizon'],
+                    'topic_area' => $data['topic_area']
+                ]);
+            } else {
+                $data['id'] = $this->topics->insert([
+                    'title' => $data['title'],
+                    'time_horizon' => $data['time_horizon'],
+                    'topic_area' => $data['topic_area']
+                ]);
+            }
+        }
+        
+        $payload = json_encode(['id' => $data['id']]);
+
+        $response->getBody()->write($payload);
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Access-Control-Allow-Origin', 'http://localhost:8080')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    }
+
     public function updateFactor(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         

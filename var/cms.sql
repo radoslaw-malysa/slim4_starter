@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 05 Lis 2020, 15:54
+-- Czas generowania: 24 Lis 2020, 17:17
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -119,6 +119,15 @@ CREATE TABLE `factors` (
   `type` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `factors`
+--
+
+INSERT INTO `factors` (`id`, `id_topic`, `title`, `ord`, `key_factor`, `type`) VALUES
+(16, 1, 'Pierwszy czynnik', 0, 1, 1),
+(17, 1, 'Drugi czynnik', 0, 1, 1),
+(23, 1, 'sdfsdfsdf', 0, 0, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -213,6 +222,8 @@ CREATE TABLE `scenarios` (
   `id_topic` int(10) UNSIGNED NOT NULL,
   `title` varchar(128) COLLATE utf8_polish_ci NOT NULL,
   `subtitle` varchar(1024) COLLATE utf8_polish_ci NOT NULL,
+  `content` text COLLATE utf8_polish_ci NOT NULL,
+  `factors` varchar(512) COLLATE utf8_polish_ci NOT NULL,
   `ord` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
@@ -224,15 +235,35 @@ CREATE TABLE `scenarios` (
 
 CREATE TABLE `topics` (
   `id` int(10) UNSIGNED NOT NULL,
-  `title` varchar(255) COLLATE utf8_polish_ci NOT NULL
+  `title` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `subtitle` varchar(512) COLLATE utf8_polish_ci NOT NULL,
+  `time_horizon` varchar(64) COLLATE utf8_polish_ci NOT NULL,
+  `topic_area` tinyint(3) UNSIGNED NOT NULL,
+  `create_time` datetime NOT NULL,
+  `create_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL,
+  `id_user` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `topics`
 --
 
-INSERT INTO `topics` (`id`, `title`) VALUES
-(1, 'Czy druk 3D ma przyszłość?');
+INSERT INTO `topics` (`id`, `title`, `subtitle`, `time_horizon`, `topic_area`, `create_time`, `create_ip`, `id_user`) VALUES
+(1, 'Czy androidy śnią o elektrycznych owcach?', '', '', 0, '0000-00-00 00:00:00', '', 0),
+(2, '[object HTMLInputElement]', '', 'null', 0, '0000-00-00 00:00:00', '', 0),
+(3, 'test nr 1', '', 'dsfd', 1, '0000-00-00 00:00:00', '', 0),
+(4, 'fdsf', '', 'sdfsdfsd', 1, '0000-00-00 00:00:00', '', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `topics_areas`
+--
+
+CREATE TABLE `topics_areas` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `title` varchar(64) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Indeksy dla zrzutów tabel
@@ -298,6 +329,12 @@ ALTER TABLE `topics`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeksy dla tabeli `topics_areas`
+--
+ALTER TABLE `topics_areas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -317,7 +354,7 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT dla tabeli `factors`
 --
 ALTER TABLE `factors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT dla tabeli `globals`
@@ -341,13 +378,19 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT dla tabeli `scenarios`
 --
 ALTER TABLE `scenarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT dla tabeli `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT dla tabeli `topics_areas`
+--
+ALTER TABLE `topics_areas`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
