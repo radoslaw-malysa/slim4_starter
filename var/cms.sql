@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 24 Lis 2020, 17:17
+-- Czas generowania: 27 Lis 2020, 15:09
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -126,7 +126,9 @@ CREATE TABLE `factors` (
 INSERT INTO `factors` (`id`, `id_topic`, `title`, `ord`, `key_factor`, `type`) VALUES
 (16, 1, 'Pierwszy czynnik', 0, 1, 1),
 (17, 1, 'Drugi czynnik', 0, 1, 1),
-(23, 1, 'sdfsdfsdf', 0, 0, 3);
+(23, 1, 'sdfsdfsdf', 0, 0, 3),
+(24, 1, 'erwerwerwer', 0, 0, 3),
+(25, 1, 'rewr reewr ewrwe rwe', 0, 0, 3);
 
 -- --------------------------------------------------------
 
@@ -227,6 +229,16 @@ CREATE TABLE `scenarios` (
   `ord` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `scenarios`
+--
+
+INSERT INTO `scenarios` (`id`, `id_topic`, `title`, `subtitle`, `content`, `factors`, `ord`) VALUES
+(1, 1, 'Pierwszy scenariusz', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>\n<h1 style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Procedury postępowania</h1>\n<p><span style=\"color: #222222; font-family: Rubik, sans-serif;\">Ci, kt&oacute;rzy są fanami kina przygodowego z początku XXI wieku, też znajdą rozrywkę w \"The Christmas Chronicles 2\". Wystarczy, że pozwolą sobie na to, aby wyszło z nich mentalne dziecko. Wtedy wieczorny seans z rodziną okaże się sukcesem na miarę premiery pierwszego \"Harry\'ego Pottera\".</span></p>', '[23,24]', 1),
+(2, 1, 'Drugi', '', '<h1>Tytuł rozdziału</h1>\n<p>fdsfdsfsdfsdfsdf</p>', '[]', 2),
+(3, 1, 'Trzeci', '', 'undefined', '[]', 3),
+(4, 1, 'Koniec świata', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>\n<h1 style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Procedury postępowania</h1>\n<p><span style=\"color: #222222; font-family: Rubik, sans-serif;\">Ci, kt&oacute;rzy są fanami kina przygodowego z początku XXI wieku, też znajdą rozrywkę w \"The Christmas Chronicles 2\". Wystarczy, że pozwolą sobie na to, aby wyszło z nich mentalne dziecko. Wtedy wieczorny seans z rodziną okaże się sukcesem na miarę premiery pierwszego \"Harry\'ego Pottera\".</span></p>', '[24,23,25]', 4);
+
 -- --------------------------------------------------------
 
 --
@@ -241,18 +253,19 @@ CREATE TABLE `topics` (
   `topic_area` tinyint(3) UNSIGNED NOT NULL,
   `create_time` datetime NOT NULL,
   `create_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL,
-  `id_user` int(10) UNSIGNED NOT NULL
+  `id_user` int(10) UNSIGNED NOT NULL,
+  `state` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
 -- Zrzut danych tabeli `topics`
 --
 
-INSERT INTO `topics` (`id`, `title`, `subtitle`, `time_horizon`, `topic_area`, `create_time`, `create_ip`, `id_user`) VALUES
-(1, 'Czy androidy śnią o elektrycznych owcach?', '', '', 0, '0000-00-00 00:00:00', '', 0),
-(2, '[object HTMLInputElement]', '', 'null', 0, '0000-00-00 00:00:00', '', 0),
-(3, 'test nr 1', '', 'dsfd', 1, '0000-00-00 00:00:00', '', 0),
-(4, 'fdsf', '', 'sdfsdfsd', 1, '0000-00-00 00:00:00', '', 0);
+INSERT INTO `topics` (`id`, `title`, `subtitle`, `time_horizon`, `topic_area`, `create_time`, `create_ip`, `id_user`, `state`) VALUES
+(1, 'Czy androidy śnią o elektrycznych owcach?', '', 'Nigdy', 2, '0000-00-00 00:00:00', '', 0, 1),
+(3, 'Zawód przyszłości', '', '5 lat', 1, '0000-00-00 00:00:00', '', 0, 1),
+(4, 'Czy Mateusz wyprodukuje samochody elektryczne?', '', '3 lata', 1, '0000-00-00 00:00:00', '', 0, 1),
+(5, 'Czy PIS będzie rządził do końca kadencji', '', '3 lata', 3, '0000-00-00 00:00:00', '', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -264,6 +277,13 @@ CREATE TABLE `topics_areas` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `title` varchar(64) COLLATE utf8_polish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `topics_areas`
+--
+
+INSERT INTO `topics_areas` (`id`, `title`) VALUES
+(1, 'Społeczeństwo');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -326,7 +346,8 @@ ALTER TABLE `scenarios`
 -- Indeksy dla tabeli `topics`
 --
 ALTER TABLE `topics`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `state` (`state`);
 
 --
 -- Indeksy dla tabeli `topics_areas`
@@ -354,7 +375,7 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT dla tabeli `factors`
 --
 ALTER TABLE `factors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT dla tabeli `globals`
@@ -378,19 +399,19 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT dla tabeli `scenarios`
 --
 ALTER TABLE `scenarios`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT dla tabeli `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT dla tabeli `topics_areas`
 --
 ALTER TABLE `topics_areas`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

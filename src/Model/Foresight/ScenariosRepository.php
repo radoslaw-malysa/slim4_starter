@@ -17,5 +17,11 @@ class ScenariosRepository extends Repository
         $this->model = Tables::SCENARIOS;
     }
 
-    
+    /*public function insert($data)
+    {
+        $factors = $data['factors'];
+        unset($data['factors']);
+
+        return parent::insert($data);
+    }*/
 }

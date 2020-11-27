@@ -20,7 +20,9 @@ return function (App $app) {
     $app->any('/api/update_key_factors', ForesightApiAction::class . ':updateKeyFactors');
     $app->any('/api/update_scenario', ForesightApiAction::class . ':updateScenario');
     
-    $app->get('/[{name}]', PageAction::class);
+    $app->get('/tematy', PageAction::class . ':fsTopics');
+    $app->get('/[{name}]', PageAction::class . ':fsHomepage');
+    //$app->get('/[{name}]', PageAction::class);
     
 };
 

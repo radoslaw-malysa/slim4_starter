@@ -58,7 +58,8 @@ class ForesightApiAction
                 $data['id'] = $this->topics->insert([
                     'title' => $data['title'],
                     'time_horizon' => $data['time_horizon'],
-                    'topic_area' => $data['topic_area']
+                    'topic_area' => $data['topic_area'],
+                    'state' => 1
                 ]);
             }
         }
@@ -130,7 +131,7 @@ class ForesightApiAction
 
         
         if (isset($data['id_topic'])) {
-            $this->factors->where('key_factor', '1')->update(['key_factor' => '0']);
+            $this->factors->where('id_topic', $data['id_topic'])->where('key_factor', '1')->update(['key_factor' => '0']);
             if (isset($data['id'])) {
                 $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
             }
@@ -144,7 +145,8 @@ class ForesightApiAction
         $data = $request->getParsedBody();
         
         if (isset($data['id_topic'])) {
-            if (isset($data['id'])) {
+            if ($data['id']) {
+                
                 $this->scenarios
                 ->where('id', $data['id'])
                 ->update([
@@ -154,6 +156,7 @@ class ForesightApiAction
                     'factors' => $data['factors']
                 ]);
             } else {
+                
                 $this->scenarios->insert([
                     'id_topic' => $data['id_topic'],
                     'title' => $data['title'],
