@@ -14,12 +14,15 @@ return function (App $app) {
     $app->get('/tematy/{id}/scenariusze', PageAction::class . ':fsTopic');
 
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
+    $app->any('/api/update_topic', ForesightApiAction::class . ':updateTopic');
     $app->any('/api/update_factor', ForesightApiAction::class . ':updateFactor');
     $app->any('/api/delete_factor', ForesightApiAction::class . ':deleteFactor');
     $app->any('/api/update_key_factors', ForesightApiAction::class . ':updateKeyFactors');
     $app->any('/api/update_scenario', ForesightApiAction::class . ':updateScenario');
     
-    $app->get('/[{name}]', PageAction::class);
+    $app->get('/tematy', PageAction::class . ':fsTopics');
+    $app->get('/[{name}]', PageAction::class . ':fsHomepage');
+    //$app->get('/[{name}]', PageAction::class);
     
 };
 

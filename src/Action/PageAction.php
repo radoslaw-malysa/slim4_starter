@@ -81,6 +81,48 @@ class PageAction extends Action
         return ($this->page['view']) ? $this->page['view'] : 'default.php';
     }
 
+
+    /**
+     * foresight homepage
+     */
+    public function fsHomepage(Request $request, Response $response, $args) {
+        /*$this->globals = $this->cms->globals->get();
+        $this->meta = $this->cms->meta->get();
+        $this->contents = $this->cms->contents->where('id_page', $this->page['id'])->get();
+        
+        if (is_array($this->contents)) {
+            foreach ($this->contents as $content) {
+                $this->html .= $this->view->fetch(($content['view']) ? $content['view'] : $this->default_template(), array_merge($content, get_object_vars($this)));
+            }
+        }*/
+
+        $header = $this->view->fetch('foresight/header.php', ['edit_mode' => false]);
+        $hero = $this->view->fetch('foresight/hero.php', [
+            'topics' => $this->topics->where('state', '1')->get()
+        ]);
+        $footer = $this->view->fetch('foresight/footer.php');
+
+        $content = $header.$hero.$footer;
+
+        return $this->view->render($response, 'foresight/layout_page.php', ['content' => $content]);
+    }
+
+    /**
+     * foresight topics
+     */
+    public function fsTopics(Request $request, Response $response, $args) {
+
+        $header = $this->view->fetch('foresight/header.php', ['edit_mode' => false]);
+        $topics = $this->view->fetch('foresight/topics.php', [
+            'topics' => $this->topics->where('state', '1')->get()
+        ]);
+        $footer = $this->view->fetch('foresight/footer.php');
+
+        $content = $header.$topics.$footer;
+
+        return $this->view->render($response, 'foresight/layout_page.php', ['content' => $content]);
+    }
+
     /**
      * foresight topic
      */
@@ -95,6 +137,15 @@ class PageAction extends Action
             }
         }*/
 
-        return $this->view->render($response, 'scenariusze.html');
+        $header = $this->view->fetch('foresight/header.php', ['edit_mode' => '1']);
+        $footer = $this->view->fetch('foresight/footer.php');
+
+        return $this->view->render($response, 'foresight/layout_topic.php', [
+            'id' => $args['id'],
+            'header' => $header, 
+            'footer' => $footer
+        ]);
     }
+
+
 }
