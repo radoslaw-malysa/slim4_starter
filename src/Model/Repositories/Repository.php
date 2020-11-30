@@ -11,10 +11,14 @@ class Repository
     protected $model;
     protected $query;
 
-    public $columns;
-    public $joins = [];
-    public $wheres = [];
-    public $orders = [];
+    protected $columns;
+    protected $joins = [];
+    protected $wheres = [];
+    protected $orders = [];
+
+    protected $limit;
+    protected $offset;
+
 
     public function select($columns = ['*'])
     {
@@ -76,16 +80,42 @@ class Repository
 
             foreach ($this->wheres as $key => $where) {
                 $this->query .= ($key > 0) ? $where['boolean'] . ' ': '';
-                
                 $this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
             }
         }
-        //echo '<br>' . $this->query;
+
+        if (count($this->orders) > 0) {
+            $this->query .= ' order by ';
+            foreach ($this->orders as $key => $order) {
+                $this->query .= ($key > 0) ? ', ' : '';
+                $this->query .= $order['column'] . ' ' . $order['order'] . ' ';
+            }
+        }
+        
+        if ($this->limit) {
+            $this->query .= 'limit ' . (($this->offset) ? $this->offset : '0') . ', ' . $this->limit;
+        }
+        //echo '<br>' . $this->query; exit;
     }
 
-    public function limit()
+    public function orderBy($column, $order = 'asc')
     {
+        $this->orders[] = compact(
+            'column', 'order'
+        );
+        return $this;
+    }
 
+    public function offset($quantity)
+    {
+        $this->offset = $quantity;
+        return $this;
+    }
+
+    public function limit($quantity)
+    {
+        $this->limit = $quantity;
+        return $this;
     }
 
     public function count()

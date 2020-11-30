@@ -98,7 +98,7 @@ class PageAction extends Action
 
         $header = $this->view->fetch('foresight/header.php', ['edit_mode' => false]);
         $hero = $this->view->fetch('foresight/hero.php', [
-            'topics' => $this->topics->where('state', '1')->get()
+            'topics' => $this->topics->where('state', '1')->orderBy('create_time', 'desc')->limit(9)->get()
         ]);
         $footer = $this->view->fetch('foresight/footer.php');
 
@@ -114,7 +114,7 @@ class PageAction extends Action
 
         $header = $this->view->fetch('foresight/header.php', ['edit_mode' => false]);
         $topics = $this->view->fetch('foresight/topics.php', [
-            'topics' => $this->topics->where('state', '1')->get()
+            'topics' => $this->topics->where('state', '1')->orderBy('create_time', 'desc')->get()
         ]);
         $footer = $this->view->fetch('foresight/footer.php');
 
@@ -149,3 +149,4 @@ class PageAction extends Action
 
 
 }
+//https://www.youtube.com/c/LachlanMiller/videos
