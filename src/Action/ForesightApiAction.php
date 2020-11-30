@@ -27,6 +27,8 @@ class ForesightApiAction
     public function getTopic(Request $request, Response $response, $args) {
         
         $topic = $this->topics->where('id', $args['id'])->first();
+        $topic['editable'] = 0;
+
         $factors = $this->factors->where('id_topic', $args['id'])->get();
         $scenarios = $this->scenarios->where('id_topic', $args['id'])->get();
         

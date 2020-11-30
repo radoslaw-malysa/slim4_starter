@@ -124,6 +124,22 @@ class PageAction extends Action
     }
 
     /**
+     * foresight find topics
+     */
+    public function fsFindTopics(Request $request, Response $response, $args) {
+
+        $data = $request->getQueryParams();
+
+        return $this->view->render($response, 'foresight/topics_list.php', [
+            'topics' => $this->topics
+            ->where('state', '1')
+            ->where('topic_area', ($data['topic_area']) ? $data['topic_area'] : null)
+            ->where('title', 'like', ($data['title']) ? '%'.$data['title'].'%' : null)
+            ->orderBy('create_time', ($data['order'] == 'created_asc') ? 'asc' : 'desc')->get()
+        ]);
+    }
+
+    /**
      * foresight topic
      */
     public function fsTopic(Request $request, Response $response, $args) {

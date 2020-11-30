@@ -30,15 +30,16 @@ class Repository
 
     public function where($column, $operator = null, $value = null, $boolean = 'and')
     {
-        
         if (func_num_args() === 2) {
             $value = $operator;
             $operator = '=';
         }
         
-        $this->wheres[] = compact(
-            'column', 'operator', 'value', 'boolean'
-        );
+        if (isset($value)) {
+            $this->wheres[] = compact(
+                'column', 'operator', 'value', 'boolean'
+            );
+        }
 
         return $this;
     }
@@ -80,7 +81,7 @@ class Repository
 
             foreach ($this->wheres as $key => $where) {
                 $this->query .= ($key > 0) ? $where['boolean'] . ' ': '';
-                $this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
+                $this->query .= $where['column'] . ' ' . $where['operator'] . " '" . $where['value'] . "' ";
             }
         }
 

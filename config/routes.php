@@ -19,7 +19,8 @@ return function (App $app) {
     $app->any('/api/delete_factor', ForesightApiAction::class . ':deleteFactor');
     $app->any('/api/update_key_factors', ForesightApiAction::class . ':updateKeyFactors');
     $app->any('/api/update_scenario', ForesightApiAction::class . ':updateScenario');
-    
+    $app->get('/api/find_topic', PageAction::class . ':fsFindTopics');
+
     $app->get('/tematy', PageAction::class . ':fsTopics');
     $app->get('/[{name}]', PageAction::class . ':fsHomepage');
     //$app->get('/[{name}]', PageAction::class);
