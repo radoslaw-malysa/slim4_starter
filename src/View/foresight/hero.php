@@ -15,20 +15,12 @@
     <div class="bg100"></div>
     <div class="w-100 w-80-ns max-w ph2 ph0-ns pv3 pv5-m pv7-l center">
         <div class="flex flex-wrap justify-center">
-            <?php foreach ($topics as $item): ?>
-            <a href="/tematy/<?php echo $item['id'] ?>" class="flex flex-column justify-between r30 card-shadow ph5 ph6-l pt5 pb6 w-100 w-48-m w-30-l mh-1 mv-1 big-card bg-white">
-                <h4 class="mv3 f4 fw7"><?php echo $item['title'] ?></h4>
-                <div class="f5 lh-copy">
-                <div><?php echo $item['time_horizon'] ?></div>
-                <div>Przemysł, technika</div>
-                </div>
-            </a>
-            <?php endforeach ?>
+        <?php require(__DIR__ . '/topics_list.php') ?>
         </div>
     </div>
     </div>
     <div class="section-action pa3 flex flex-column flex-row-l justify-between-l items-center">
-    <div class="f4 f3-m f2-l lh-copy mb4 mb0-l">Jak trafne są nasze prognozy?<br>Sprawdź to.</div>
+    <div class="f4 f3-m f2-l lh-copy mb4 mb0-l">Czy nasze prognozy są trafne?<br>Sprawdź to.</div>
     <div><a href="/tematy" class="matter-button-contained big-rnd big-btn nowrap">zobacz wszystkie</a></div>
     </div>
 </section>

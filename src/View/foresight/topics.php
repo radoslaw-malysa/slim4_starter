@@ -15,13 +15,10 @@
           <div class="mv3 mv4-l mh1-ns w-100 w-30-ns">
               <div class="select w-100">
               <select class="select-text" required id="scenarios-topic">
-                  <option value="" selected="selected"></option>
-                  <option value="1">Społeczeństwo</option>
-                  <option value="2">Technologia</option>
-                  <option value="3">Gospodarka</option>
-                  <option value="4">Środowisko</option>
-                  <option value="5">Polityka</option>
-                  <option value="6">Inne</option>
+                    <option value="" selected="selected"></option>
+                    <?php foreach ($topics_areas as $item): ?>
+                    <option value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
+                    <?php endforeach ?>
               </select>
               <span class="select-highlight"></span> <span class="select-bar"></span> <label class="select-label">Obszar, dziedzina</label>
               </div>
@@ -35,7 +32,7 @@
   </div>
   </div>
   <div class="w-100 relative">
-  <div class="bg100"></div>
+  <div class="bg100 maxbg"></div>
   <div class="w-100 w-80-ns max-w min-h-topics ph2 ph0-ns pv3 pv5-m pv7-l center">
       <div id="scenarios-list" class="flex flex-wrap justify-center">
         <?php require(__DIR__ . '/topics_list.php') ?>

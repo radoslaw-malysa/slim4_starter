@@ -76,6 +76,10 @@ class Repository
 
         $this->query .= " from " . $this->model;
 
+        if (count($this->joins) > 0) {
+            $this->query .= implode(' ', $this->joins);
+        }
+
         if (count($this->wheres) > 0) {
             $this->query .= ' where ';
 
@@ -133,6 +137,29 @@ class Repository
     {
 
     }
+
+    /**
+     * joins
+     */
+    public function join($table, $first, $operator = null, $second = null, $type = 'inner', $where = false)
+    {
+        $method = $where ? 'where' : 'on';
+
+        $this->joins[] = $type . " join " . $table . " " . $method . " " . $first . " " . $operator ." " . $second . " ";
+
+        return $this;
+    }
+
+    public function leftJoin($table, $first, $operator = null, $second = null)
+    {
+        return $this->join($table, $first, $operator, $second, 'left');
+    }
+
+    public function rightJoin($table, $first, $operator = null, $second = null)
+    {
+        return $this->join($table, $first, $operator, $second, 'right');
+    }
+
 
     protected function result($result)
     {
@@ -194,6 +221,19 @@ class Repository
         $st->execute();
         
         return $this->result(true);
+    }
+
+    public function getConnection()
+    {
+        return $this->connection;
+    }
+
+    public function fetchAll()
+    {
+        $st = $this->connection->prepare($this->query);
+        $st->execute();
+
+        return $this->result($st->fetchAll());
     }
 
     //https://websitebeaver.com/php-pdo-prepared-statements-to-prevent-sql-injection

@@ -96,9 +96,18 @@ class PageAction extends Action
             }
         }*/
 
-        $header = $this->view->fetch('foresight/header.php', ['edit_mode' => false]);
+        $time_horizons = $this->cms->timeHorizons->orderBy('years')->get();
+        $topics_areas = $this->cms->topicsAreas->orderBy('id')->get();
+
+        $header = $this->view->fetch('foresight/header.php', [
+            'edit_mode' => false,
+            'time_horizons' => $time_horizons,
+            'topics_areas' => $topics_areas
+        ]);
         $hero = $this->view->fetch('foresight/hero.php', [
-            'topics' => $this->topics->where('state', '1')->orderBy('create_time', 'desc')->limit(9)->get()
+            'topics' => $this->cms->topics->where('state', '1')->orderBy('create_time', 'desc')->limit(9)->get(),
+            'time_horizons' => $this->cms->indexArray($time_horizons),
+            'topics_areas' => $this->cms->indexArray($topics_areas)
         ]);
         $footer = $this->view->fetch('foresight/footer.php');
 
@@ -112,9 +121,19 @@ class PageAction extends Action
      */
     public function fsTopics(Request $request, Response $response, $args) {
 
-        $header = $this->view->fetch('foresight/header.php', ['edit_mode' => false]);
+        $time_horizons = $this->cms->timeHorizons->orderBy('years')->get();
+        $topics_areas = $this->cms->topicsAreas->orderBy('id')->get();
+
+        $header = $this->view->fetch('foresight/header.php', [
+            'edit_mode' => false,
+            'time_horizons' => $time_horizons,
+            'topics_areas' => $topics_areas
+        ]);
+
         $topics = $this->view->fetch('foresight/topics.php', [
-            'topics' => $this->topics->where('state', '1')->orderBy('create_time', 'desc')->get()
+            'topics' => $this->cms->topics->where('state', '1')->orderBy('create_time', 'desc')->get(),
+            'time_horizons' => $this->cms->indexArray($time_horizons),
+            'topics_areas' => $this->cms->indexArray($topics_areas)
         ]);
         $footer = $this->view->fetch('foresight/footer.php');
 
@@ -131,7 +150,7 @@ class PageAction extends Action
         $data = $request->getQueryParams();
 
         return $this->view->render($response, 'foresight/topics_list.php', [
-            'topics' => $this->topics
+            'topics' => $this->cms->topics
             ->where('state', '1')
             ->where('topic_area', ($data['topic_area']) ? $data['topic_area'] : null)
             ->where('title', 'like', ($data['title']) ? '%'.$data['title'].'%' : null)
@@ -143,17 +162,15 @@ class PageAction extends Action
      * foresight topic
      */
     public function fsTopic(Request $request, Response $response, $args) {
-        /*$this->globals = $this->cms->globals->get();
-        $this->meta = $this->cms->meta->get();
-        $this->contents = $this->cms->contents->where('id_page', $this->page['id'])->get();
-        
-        if (is_array($this->contents)) {
-            foreach ($this->contents as $content) {
-                $this->html .= $this->view->fetch(($content['view']) ? $content['view'] : $this->default_template(), array_merge($content, get_object_vars($this)));
-            }
-        }*/
+        $time_horizons = $this->cms->timeHorizons->orderBy('years')->get();
+        $topics_areas = $this->cms->topicsAreas->orderBy('id')->get();
 
-        $header = $this->view->fetch('foresight/header.php', ['edit_mode' => '1']);
+        $header = $this->view->fetch('foresight/header.php', [
+            'edit_mode' => '1',
+            'time_horizons' => $time_horizons,
+            'topics_areas' => $topics_areas
+        ]);
+
         $footer = $this->view->fetch('foresight/footer.php');
 
         return $this->view->render($response, 'foresight/layout_topic.php', [

@@ -13,20 +13,20 @@
       <script src="/js/tinymce/tinymce.min.js" referrerpolicy="origin"></script>
       <link href="/css/matter.min.css" rel="stylesheet">
       <link href="/css/app.page.css" rel="stylesheet">
-      <link href="/css/app.352372c0.css" rel="preload" as="style">
-      <link href="/css/chunk-vendors.3133f065.css" rel="preload" as="style">
-      <link href="/js/app.617e7a19.js" rel="preload" as="script">
-      <link href="/js/chunk-vendors.0c63c256.js" rel="preload" as="script">
-      <link href="/css/chunk-vendors.3133f065.css" rel="stylesheet">
-      <link href="/css/app.352372c0.css" rel="stylesheet">
+      <link href="/css/app.911fdb5d.css" rel="preload" as="style">
+      <link href="/css/chunk-vendors.30cd88bd.css" rel="preload" as="style">
+      <link href="/js/app.dd71e69d.js" rel="preload" as="script">
+      <link href="/js/chunk-vendors.1bf3ce9c.js" rel="preload" as="script">
+      <link href="/css/chunk-vendors.30cd88bd.css" rel="stylesheet">
+      <link href="/css/app.911fdb5d.css" rel="stylesheet">
    </head>
    <body>
       <noscript><strong>We're sorry but horyzonty doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
       <?php echo $header ?>
-      <div id="topic" data-id="<?php echo $id ?>">
+      <div id="topic" data-id="<?php echo $id ?>" class="mt6x">
       <div id="app"></div>
       <?php echo $footer ?>
-      <script src="/js/chunk-vendors.0c63c256.js"></script><script src="/js/app.617e7a19.js"></script>
+      <script src="/js/chunk-vendors.1bf3ce9c.js"></script><script src="/js/app.dd71e69d.js"></script>
       <script type="text/javascript" src="/js/app.page.js"></script>
    </body>
 </html>

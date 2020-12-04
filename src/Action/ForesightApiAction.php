@@ -7,14 +7,18 @@ namespace App\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Model\Foresight\TopicsRepository;
+use App\Model\Foresight\FactorsTypesRepository;
+use App\Model\Foresight\TopicsFactorsTypesRepository;
 use App\Model\Foresight\FactorsRepository;
 use App\Model\Foresight\ScenariosRepository;
 
 class ForesightApiAction 
 {
-    public function __construct(TopicsRepository $topics, FactorsRepository $factors, ScenariosRepository $scenarios)
+    public function __construct(TopicsRepository $topics, FactorsTypesRepository $factorsTypes, TopicsFactorsTypesRepository $topicsFactorsTypes, FactorsRepository $factors, ScenariosRepository $scenarios)
     {
         $this->topics = $topics;
+        $this->factorsTypes = $factorsTypes;
+        $this->topicsFactorsTypes = $topicsFactorsTypes;
         $this->factors = $factors;
         $this->scenarios = $scenarios;
     }
@@ -27,12 +31,14 @@ class ForesightApiAction
     public function getTopic(Request $request, Response $response, $args) {
         
         $topic = $this->topics->where('id', $args['id'])->first();
-        $topic['editable'] = 0;
+        $topic['editable'] = ($topic['id'] > 2) ? 1 : 1;
 
+        $factors_types = ($topic['editable']) ? $this->factorsTypes->topicSelectionEditable($topic['id']) : $this->factorsTypes->topicSelection($topic['id']);
+        $topics_factors_types = $this->topicsFactorsTypes->where('id_topic', $args['id'])->get();
         $factors = $this->factors->where('id_topic', $args['id'])->get();
         $scenarios = $this->scenarios->where('id_topic', $args['id'])->get();
         
-        $data = array_merge($topic, ['factors' => $factors, 'scenarios' => $scenarios]);
+        $data = array_merge($topic, ['factors_types' => $factors_types, 'topics_factors_types' => $topics_factors_types, 'factors' => $factors, 'scenarios' => $scenarios]);
         $payload = json_encode($data);
 
         $response->getBody()->write($payload);

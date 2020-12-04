@@ -12,6 +12,7 @@ return function (App $app) {
     //foresight scenarios
     $app->get('/tematy/{id}', PageAction::class . ':fsTopic');
     $app->get('/tematy/{id}/scenariusze', PageAction::class . ':fsTopic');
+    $app->get('/tematy/{id}/scenariusze/{nr}', PageAction::class . ':fsTopic');
 
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
     $app->any('/api/update_topic', ForesightApiAction::class . ':updateTopic');
