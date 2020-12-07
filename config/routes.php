@@ -15,6 +15,7 @@ return function (App $app) {
     $app->get('/tematy/{id}/scenariusze/{nr}', PageAction::class . ':fsTopic');
 
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
+    $app->any('/api/add_topic_type', ForesightApiAction::class . ':addTopicType');
     $app->any('/api/update_topic', ForesightApiAction::class . ':updateTopic');
     $app->any('/api/update_factor', ForesightApiAction::class . ':updateFactor');
     $app->any('/api/delete_factor', ForesightApiAction::class . ':deleteFactor');

@@ -33,7 +33,7 @@ class ForesightApiAction
         $topic = $this->topics->where('id', $args['id'])->first();
         $topic['editable'] = ($topic['id'] > 2) ? 1 : 1;
 
-        $factors_types = ($topic['editable']) ? $this->factorsTypes->topicSelectionEditable($topic['id']) : $this->factorsTypes->topicSelection($topic['id']);
+        $factors_types = ($topic['editable']) ? $this->indexArray($this->factorsTypes->topicSelectionEditable($topic['id'])) : $this->indexArray($this->factorsTypes->topicSelection($topic['id']));
         $topics_factors_types = $this->topicsFactorsTypes->where('id_topic', $args['id'])->get();
         $factors = $this->factors->where('id_topic', $args['id'])->get();
         $scenarios = $this->scenarios->where('id_topic', $args['id'])->get();
@@ -42,11 +42,28 @@ class ForesightApiAction
         $payload = json_encode($data);
 
         $response->getBody()->write($payload);
+        
         return $response
             ->withHeader('Content-Type', 'application/json')
             ->withHeader('Access-Control-Allow-Origin', 'http://mysite')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    }
+
+    public function addTopicType(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        if (isset($data['id_topic'])) {
+
+            $this->topicsFactorsTypes->insert([
+                'id_topic' => $data['id_topic'],
+                'id_factor_type' => $data['id_factor_type']
+            ]);
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            return $this->errorResponse($request, $response, []);
+        }
     }
 
     public function updateTopic(Request $request, Response $response, $args) {
@@ -188,6 +205,15 @@ class ForesightApiAction
             ->withHeader('Access-Control-Allow-Origin', 'http://mysite')
             ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    }
+
+    protected function indexArray($array, $column = 'id')
+    {
+        $indexed = [];
+        foreach ($array as $row) {
+            $indexed[$row[$column]] = $row;
+        }
+        return $indexed;
     }
 
    //"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" Files (x86)\Google\Chrome\Application\chrome.exe --disable-web-security --user-data-dir="C:/ChromeDevSession"

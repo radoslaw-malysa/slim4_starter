@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 04 Gru 2020, 16:39
+-- Czas generowania: 07 Gru 2020, 16:04
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -128,9 +128,9 @@ CREATE TABLE `factors` (
 --
 
 INSERT INTO `factors` (`id`, `id_topic`, `title`, `ord`, `key_factor`, `type`, `scenario_1`, `scenario_2`, `scenario_3`, `scenario_4`) VALUES
-(43, 1, 'dsfsdfsf', 0, 1, 1, 0, 0, 0, 0),
-(44, 1, 'dfdsfdsf', 0, 0, 1, 0, 0, 0, 0),
-(45, 1, 'erewrerwe', 0, 1, 1, 0, 0, 0, 0);
+(46, 1, 'ewrwerw', 0, 1, 1, 0, 0, 0, 0),
+(47, 1, 'ewrewrw', 0, 1, 1, 0, 0, 0, 0),
+(52, 1, 'aaa', 0, 0, 3, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ INSERT INTO `factors_types` (`id`, `title`, `subtitle`, `content`, `color`, `sta
 (1, 'Czynniki zmian', 'Dodaj czynniki zmian', 'Przyczyny mające wpływ na badane zagadnienie. Przykładowe czynniki: potencjał kadrowy, aktywności organizacji proekologicznych, infrastruktura badawcza, polityka innowacyjna państwa etc. Czynniki zmian mogą być społeczne, technologiczne, prawne, środowiskowe, ekonomiczne.', '#f9c814', 1),
 (3, 'Dzikie karty', 'Dodaj dzikie karty', 'Dodaj dziekie karty charakteryzujące się niskim prawdopodobieństwem i dużym wpływem na zagadnienie.', '#00bcda', 1),
 (4, 'Słabe sygnały', 'Dodaj Słabe sygnały', '', '#18b9a7', 1),
-(5, 'Czarne łabędzie', 'Dodaj Czarne łabędzie', '', '#18b9a7', 1),
+(5, 'Czarne łabędzie', 'Dodaj Czarne łabędzie', 'Czarne jak noc', '#18b9a7', 1),
 (6, 'Technologie kluczowe', 'Dodaj Technologie kluczowe', '', '#18b9a7', 1);
 
 -- --------------------------------------------------------
@@ -354,6 +354,14 @@ CREATE TABLE `topics_factors_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 --
+-- Zrzut danych tabeli `topics_factors_types`
+--
+
+INSERT INTO `topics_factors_types` (`id`, `id_topic`, `id_factor_type`) VALUES
+(1, 1, 1),
+(6, 1, 3);
+
+--
 -- Indeksy dla zrzutów tabel
 --
 
@@ -463,7 +471,7 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT dla tabeli `factors`
 --
 ALTER TABLE `factors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT dla tabeli `factors_types`
@@ -517,7 +525,7 @@ ALTER TABLE `topics_areas`
 -- AUTO_INCREMENT dla tabeli `topics_factors_types`
 --
 ALTER TABLE `topics_factors_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
