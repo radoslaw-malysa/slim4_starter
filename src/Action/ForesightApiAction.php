@@ -66,6 +66,25 @@ class ForesightApiAction
         }
     }
 
+    public function delTopicType(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        if (isset($data['id']) && isset($data['id_topic']) && isset($data['id_factor_type'])) {
+            $this->factors
+            ->where('id_topic', $data['id_topic'])
+            ->where('type', $data['id_factor_type'])
+            ->delete();
+            
+            $this->topicsFactorsTypes
+            ->where('id', $data['id'])
+            ->delete();
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            return $this->errorResponse($request, $response, []);
+        }
+    }
+
     public function updateTopic(Request $request, Response $response, $args) {
         
         $data = $request->getParsedBody();
