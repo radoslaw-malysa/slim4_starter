@@ -137,6 +137,12 @@ class ForesightApiAction
                     'topic_area' => $data['topic_area'],
                     'state' => 1
                 ]);
+
+                //add first topic factors type
+                $this->topicsFactorsTypes->insert([
+                    'id_topic' => $data['id'],
+                    'id_factor_type' => 1
+                ]);
             }
         }
         
