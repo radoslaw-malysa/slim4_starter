@@ -194,7 +194,7 @@ class Repository
                 //$this->query .= $where['column'] . $where['operator'] . "'" . $where['value'] . "' ";
             }
         }
-        
+        //echo $this->query.'<br>';
         $st = $this->connection->prepare($this->query);
         $st->execute(array_values($data));
         

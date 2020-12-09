@@ -16,12 +16,14 @@ return function (App $app) {
 
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
     $app->any('/api/add_topic_type', ForesightApiAction::class . ':addTopicType');
+    $app->any('/api/create_add_topic_type', ForesightApiAction::class . ':createAddTopicType');
     $app->any('/api/del_topic_type', ForesightApiAction::class . ':delTopicType');
     $app->any('/api/update_topic', ForesightApiAction::class . ':updateTopic');
     $app->any('/api/update_factor', ForesightApiAction::class . ':updateFactor');
     $app->any('/api/delete_factor', ForesightApiAction::class . ':deleteFactor');
     $app->any('/api/update_key_factors', ForesightApiAction::class . ':updateKeyFactors');
     $app->any('/api/update_scenario', ForesightApiAction::class . ':updateScenario');
+    $app->any('/api/update_scenario_factors', ForesightApiAction::class . ':updateScenarioFactors');
     $app->get('/api/find_topic', PageAction::class . ':fsFindTopics');
 
     $app->get('/tematy', PageAction::class . ':fsTopics');

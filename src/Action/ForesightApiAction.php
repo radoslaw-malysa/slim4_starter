@@ -66,6 +66,32 @@ class ForesightApiAction
         }
     }
 
+    public function createAddTopicType(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        if (isset($data['id_topic'])) {
+
+            $id_factor_type = $this->factorsTypes->insert([
+                'title' => $data['title'],
+                'color' => '#18b9a7',
+                'standard_type' => '0'
+            ]);
+            
+            if ($id_factor_type) {
+                $this->topicsFactorsTypes->insert([
+                    'id_topic' => $data['id_topic'],
+                    'id_factor_type' => $id_factor_type
+                ]);
+            } else {
+                return $this->errorResponse($request, $response, []);
+            }
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            return $this->errorResponse($request, $response, []);
+        }
+    }
+
     public function delTopicType(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
         
@@ -77,6 +103,12 @@ class ForesightApiAction
             
             $this->topicsFactorsTypes
             ->where('id', $data['id'])
+            ->delete();
+
+            //delete factor_type if not standart
+            $this->factorsTypes
+            ->where('id', $data['id_factor_type'])
+            ->where('standard_type', '0')
             ->delete();
             
             return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
@@ -196,8 +228,7 @@ class ForesightApiAction
                 ->update([
                     'title' => $data['title'],
                     'content' => $data['content'],
-                    'ord' => $data['ord'],
-                    'factors' => $data['factors']
+                    'ord' => $data['ord']
                 ]);
             } else {
                 
@@ -205,9 +236,38 @@ class ForesightApiAction
                     'id_topic' => $data['id_topic'],
                     'title' => $data['title'],
                     'content' => $data['content'],
-                    'ord' => $data['ord'],
-                    'factors' => $data['factors']
+                    'ord' => $data['ord']
                 ]);
+            }
+            
+            return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
+        } else {
+            return $this->errorResponse($request, $response, []);
+        }
+    }
+
+    public function updateScenarioFactors(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+        
+        if (isset($data['id_topic']) && isset($data['nr'])) {
+            
+            //clear scenario factors
+            $this->factors
+            ->where('id_topic', $data['id_topic'])
+            ->update([
+                'scenario_' . $data['nr'] => '0'
+            ]);
+            
+            $factors = json_decode($data['factors']);
+           
+            if (is_array($factors)) {
+                foreach ($factors as $id_factor) {
+                    $this->factors
+                    ->where('id', $id_factor)
+                    ->update([
+                        'scenario_' . $data['nr'] => '1'
+                    ]);
+                }
             }
             
             return $this->getTopic($request, $response, ['id' => $data['id_topic']]);
