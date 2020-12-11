@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 07 Gru 2020, 16:04
+-- Czas generowania: 11 Gru 2020, 16:23
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -128,9 +128,19 @@ CREATE TABLE `factors` (
 --
 
 INSERT INTO `factors` (`id`, `id_topic`, `title`, `ord`, `key_factor`, `type`, `scenario_1`, `scenario_2`, `scenario_3`, `scenario_4`) VALUES
-(46, 1, 'ewrwerw', 0, 1, 1, 0, 0, 0, 0),
-(47, 1, 'ewrewrw', 0, 1, 1, 0, 0, 0, 0),
-(52, 1, 'aaa', 0, 0, 3, 0, 0, 0, 0);
+(81, 1, 'gfdgfdgdfg', 0, 1, 1, 1, 1, 1, 0),
+(82, 1, 'fsdsdf', 0, 1, 1, 0, 1, 0, 0),
+(120, 1, 'ewrewr ewrewr ewr ewrewr', 0, 0, 1, 0, 0, 0, 0),
+(124, 1, 'sd sfdfsdf sdfsd ', 0, 0, 6, 0, 1, 1, 1),
+(125, 1, 'sdf sdf sdfs dfdsfsfsdfsdfsdf sdfdsfsdf', 0, 0, 6, 0, 0, 0, 1),
+(129, 1, 'werewrewrwer ewrwer', 0, 0, 1, 0, 0, 0, 0),
+(132, 1, 'dfdsfdsf', 0, 0, 5, 0, 0, 1, 0),
+(133, 1, 'fdgdfg', 0, 0, 4, 0, 0, 0, 0),
+(135, 1, 'ewrwerwe', 0, 0, 5, 0, 0, 0, 0),
+(136, 1, 'sdfsd fsdfdsfds fsd', 0, 0, 4, 0, 0, 0, 0),
+(137, 1, ' sdfdsfsd ', 0, 0, 4, 0, 0, 1, 0),
+(138, 1, 'sdf sdfdsfdsfdsf', 0, 0, 5, 0, 0, 0, 0),
+(139, 1, 'ds fsdf dsf dsfdfs', 0, 0, 6, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -152,11 +162,11 @@ CREATE TABLE `factors_types` (
 --
 
 INSERT INTO `factors_types` (`id`, `title`, `subtitle`, `content`, `color`, `standard_type`) VALUES
-(1, 'Czynniki zmian', 'Dodaj czynniki zmian', 'Przyczyny mające wpływ na badane zagadnienie. Przykładowe czynniki: potencjał kadrowy, aktywności organizacji proekologicznych, infrastruktura badawcza, polityka innowacyjna państwa etc. Czynniki zmian mogą być społeczne, technologiczne, prawne, środowiskowe, ekonomiczne.', '#f9c814', 1),
-(3, 'Dzikie karty', 'Dodaj dzikie karty', 'Dodaj dziekie karty charakteryzujące się niskim prawdopodobieństwem i dużym wpływem na zagadnienie.', '#00bcda', 1),
-(4, 'Słabe sygnały', 'Dodaj Słabe sygnały', '', '#18b9a7', 1),
-(5, 'Czarne łabędzie', 'Dodaj Czarne łabędzie', 'Czarne jak noc', '#18b9a7', 1),
-(6, 'Technologie kluczowe', 'Dodaj Technologie kluczowe', '', '#18b9a7', 1);
+(1, 'Czynniki zmian', 'Czynniki zmian', 'Przyczyny mające wpływ na badane zagadnienie. Przykładowe czynniki: potencjał kadrowy, aktywności organizacji proekologicznych, infrastruktura badawcza, polityka innowacyjna państwa etc. Czynniki zmian mogą być społeczne, technologiczne, prawne, środowiskowe, ekonomiczne.', '#f9c814', 1),
+(3, 'Dzikie karty', 'Dzikie karty (Wild cards)', 'Potencjalne zjawiska, które są mało prawdopodobne, ale jeżeli wystąpią powodują bardzo istotne, silne konsekwencje stanowiące punkt zwrotny w rozwoju dotychczasowej tendencji (np. zawodowych, ekonomicznych, społecznych, technologicznych, etc.). Przykłady dzikich kart: awaria elektrowni jądrowej, katastrofa ekologiczna, pandemia itp.', '#00bcda', 1),
+(4, 'Słabe sygnały', 'Słabe sygnały (Weak signals)', 'Pierwsze oznaki zmiany paradygmatu, lub przyszłych trendów, sił napędowych i nagłych przerw w jakiejś działalności. Przykłady słabych sygnałów np. przewidywania z roku 2016 (wg Global Agenda Council on the Future of Software & Society), że do 2025 r. sztuczna inteligencja będzie przeprowadzać 30 proc. wszystkich audytów w korporacjach, a do 2026 r. pierwsza sztuczna inteligencja dołączy do rady nadzorczej,  pojazdy autonomiczne w filmach SF itd.', '#008ca8', 1),
+(5, 'Technologie kluczowe', 'Dodaj Technologie kluczowe', '', '#6a3f99', 1),
+(6, 'Czarne łabędzie', 'Dodaj Czarne łabędzie', 'Mroczne ptaszyska z otchłani', '#222222', 1);
 
 -- --------------------------------------------------------
 
@@ -263,8 +273,8 @@ CREATE TABLE `scenarios` (
 
 INSERT INTO `scenarios` (`id`, `id_topic`, `title`, `subtitle`, `content`, `factors`, `ord`) VALUES
 (1, 1, 'Pierwszy scenariusz', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>\n<h1 style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Procedury postępowania</h1>\n<p><span style=\"color: #222222; font-family: Rubik, sans-serif;\">Ci, kt&oacute;rzy są fanami kina przygodowego z początku XXI wieku, też znajdą rozrywkę w \"The Christmas Chronicles 2\". Wystarczy, że pozwolą sobie na to, aby wyszło z nich mentalne dziecko. Wtedy wieczorny seans z rodziną okaże się sukcesem na miarę premiery pierwszego \"Harry\'ego Pottera\".</span></p>', '[23,24]', 1),
-(2, 1, 'Drugi', '', '<h1>Nagł&oacute;wek 1</h1>\n<p>Test inline formatting</p>', '[]', 2),
-(3, 1, 'Trzeci', '', 'undefined', '[]', 3),
+(2, 1, 'Tytuł drugirgo scenariusza', '', '<h1>Nagł&oacute;wek 1</h1>\n<p>Treść opis tkie tam</p>', '', 2),
+(3, 1, 'Katastrofa nuklearna', '', '', '[]', 3),
 (4, 1, 'Koniec świata', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>\n<h1 style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Procedury postępowania</h1>\n<p><span style=\"color: #222222; font-family: Rubik, sans-serif;\">Ci, kt&oacute;rzy są fanami kina przygodowego z początku XXI wieku, też znajdą rozrywkę w \"The Christmas Chronicles 2\". Wystarczy, że pozwolą sobie na to, aby wyszło z nich mentalne dziecko. Wtedy wieczorny seans z rodziną okaże się sukcesem na miarę premiery pierwszego \"Harry\'ego Pottera\".</span></p>', '[24,23,25]', 4);
 
 -- --------------------------------------------------------
@@ -358,8 +368,10 @@ CREATE TABLE `topics_factors_types` (
 --
 
 INSERT INTO `topics_factors_types` (`id`, `id_topic`, `id_factor_type`) VALUES
-(1, 1, 1),
-(6, 1, 3);
+(8, 1, 1),
+(69, 1, 6),
+(74, 1, 4),
+(75, 1, 5);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -471,13 +483,13 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT dla tabeli `factors`
 --
 ALTER TABLE `factors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
 
 --
 -- AUTO_INCREMENT dla tabeli `factors_types`
 --
 ALTER TABLE `factors_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT dla tabeli `globals`
@@ -525,7 +537,7 @@ ALTER TABLE `topics_areas`
 -- AUTO_INCREMENT dla tabeli `topics_factors_types`
 --
 ALTER TABLE `topics_factors_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
