@@ -15,12 +15,12 @@
       <link href="/css/app.page.css" rel="stylesheet">
       <link href="/js/chunk-2d216214.ff1c36c7.js" rel="prefetch">
       <link href="/js/chunk-64f84645.c825065d.js" rel="prefetch">
-      <link href="/css/app.624eff23.css" rel="preload" as="style">
+      <link href="/css/app.c8b8efd5.css" rel="preload" as="style">
       <link href="/css/chunk-vendors.4b17da64.css" rel="preload" as="style">
-      <link href="/js/app.675c789f.js" rel="preload" as="script">
-      <link href="/js/chunk-vendors.0e00bb7c.js" rel="preload" as="script">
+      <link href="/js/app.7ef0fade.js" rel="preload" as="script">
+      <link href="/js/chunk-vendors.0b4e62f1.js" rel="preload" as="script">
       <link href="/css/chunk-vendors.4b17da64.css" rel="stylesheet">
-      <link href="/css/app.624eff23.css" rel="stylesheet">
+      <link href="/css/app.c8b8efd5.css" rel="stylesheet">
    </head>
    <body>
       <noscript><strong>We're sorry but horyzonty doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript>
@@ -28,7 +28,7 @@
       <div id="topic" data-id="<?php echo $id ?>" class="mt6x">
       <div id="app"></div>
       <?php echo $footer ?>
-      <script src="/js/chunk-vendors.0e00bb7c.js"></script><script src="/js/app.675c789f.js"></script>
+      <script src="/js/chunk-vendors.0b4e62f1.js"></script><script src="/js/app.7ef0fade.js"></script>
       <script type="text/javascript" src="/js/app.page.js"></script>
    </body>
 </html>
