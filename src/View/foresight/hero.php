@@ -1,10 +1,10 @@
 <section class="section-hero1">
     <header class="flex flex-column flex-row-ns justify-between items-center-l w-100">
     <h1 class="ma0 fw7 lh-solid mb3 mb0-l">jak myśleć<br>o odległej<br><span class="c-red">przyszłości</span></h1>
-    <img class="image absolute" src="https://ogloszenia.cozadzien.pl/images/hero2.svg" alt="">
+    <img class="image absolute" src="/img/foresight_hero.svg" alt="Foresight horyzonty przyszłości graf" />
     </header>
     <div class="f5 f3-l lh-copy hero-action mb5 mt4 mt0-l">Przybliżamy technikę <strong>foresight</strong>, pozwalającą kreatywnie i wielowymiarowo podejść do problemu</div>
-    <div class="flex flex-column flex-row-ns w-70 w-auto-l"><button class="drawer-trigger matter-button-contained big-rnd big-btn nowrap">dodaj scenariusz</button> <a href="/tematy" class="matter-button-contained big-rnd big-btn red nowrap ml3-ns mt2 mt0-ns">zobacz scenariusze</a></div>
+    <div class="flex flex-column flex-row-ns w-70 w-auto-l"><button class="drawer-trigger matter-button-contained big-rnd big-btn nowrap">utwórz scenariusz</button> <a href="/tematy" class="matter-button-contained big-rnd big-btn red nowrap ml3-ns mt2 mt0-ns">zobacz scenariusze</a></div>
 </section>
 <section>
     <div class="relative w-100 section-header">
