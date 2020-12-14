@@ -8,7 +8,7 @@
                 </svg>
             </div>
             <?php else: ?>
-            <a href="/" class="nav-brand fw7 lh-title"><img src="http://www.solarcloud.pl/img/logo_horyzonty_przyszlosci.png" alt="Horyzonty Przyszłości logo" class="logo-main" /></a>
+            <a href="/" class="nav-brand fw7 lh-title">horyzonty<br>przyszłości</a>
             <?php endif ?>
             <div class="dn-l tr pr3" style="padding-right: 165px;"><img src="/img/hamb.svg" class="menu-trigger dib"></div>
             <div id="site-menu" class="nav-menu dn flex-ns justify-end items-center fw7" <?php if ($edit_mode): ?>style="margin-right:0;"<?php endif ?>>
@@ -47,24 +47,19 @@
                 <div class="validate-helper"></div>
             </div>
             <div class="w-100 mv3 mv4-l">
-                <div class="select w-100 validate-container">
-                <select class="select-text" required id="new-time-horizon">
-                    <option value="" selected="selected"></option>
-                    <?php foreach ($time_horizons as $item): ?>
-                    <option value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
-                    <?php endforeach ?>
-                </select>
-                <span class="select-highlight"></span> <span class="select-bar"></span> <label class="select-label">Horyzont czasowy</label>
-                </div>
+                <label class="matter-textfield-filled w-100 validate-container"><input type="text" placeholder=" " id="new-time-horizon" required> <span>Horyzont czasowy (np. 5 lat)</span></label>
                 <div class="validate-helper"></div>
             </div>
             <div class="w-100 mv3 mv4-l">
                 <div class="select w-100 validate-container">
                 <select class="select-text" required id="new-topic-area">
                     <option value="" selected="selected"></option>
-                    <?php foreach ($topics_areas as $item): ?>
-                    <option value="<?php echo $item['id'] ?>"><?php echo $item['title'] ?></option>
-                    <?php endforeach ?>
+                    <option value="1">Społeczeństwo</option>
+                    <option value="2">Technologia</option>
+                    <option value="3">Gospodarka</option>
+                    <option value="4">Środowisko</option>
+                    <option value="5">Polityka</option>
+                    <option value="6">Inne</option>
                 </select>
                 <span class="select-highlight"></span> <span class="select-bar"></span> <label class="select-label">Obszar, dziedzina</label>
                 </div>
