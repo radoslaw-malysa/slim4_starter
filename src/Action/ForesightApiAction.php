@@ -135,6 +135,8 @@ class ForesightApiAction
                     'title' => $data['title'],
                     'time_horizon' => $data['time_horizon'],
                     'topic_area' => $data['topic_area'],
+                    'create_time' => date("Y-m-d H:i:s"),
+                    'create_ip' => $_SERVER['REMOTE_ADDR'],
                     'state' => 1
                 ]);
 
@@ -300,6 +302,7 @@ class ForesightApiAction
         }
         return $indexed;
     }
+    
 
    //"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" Files (x86)\Google\Chrome\Application\chrome.exe --disable-web-security --user-data-dir="C:/ChromeDevSession"
 

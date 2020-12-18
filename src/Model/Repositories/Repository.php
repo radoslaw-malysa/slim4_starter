@@ -2,6 +2,8 @@
 
 namespace App\Model\Repositories;
 
+use App\Model\Repositories\Paginator;
+
 /**
  * Repository.
  */
@@ -11,7 +13,7 @@ class Repository
     protected $model;
     protected $query;
 
-    protected $columns;
+    protected $columns = [];
     protected $joins = [];
     protected $wheres = [];
     protected $orders = [];
@@ -19,11 +21,21 @@ class Repository
     protected $limit;
     protected $offset;
 
-
     public function select($columns = ['*'])
     {
-        $this->columns = [];
+        //$this->columns = [];
         $this->columns = is_array($columns) ? $columns : [$columns];
+        
+        return $this;
+    }
+
+    public function addSelect($columns = ['*'])
+    {
+        if ($this->columns[0]) {
+            array_push($this->columns, is_array($columns) ? $columns : [$columns]);
+        } else {
+            $this->columns = is_array($columns) ? $columns : [$columns];
+        }
         
         return $this;
     }
@@ -74,7 +86,7 @@ class Repository
             $this->query .= implode(', ', $this->columns);
         }
 
-        $this->query .= " from " . $this->model;
+        $this->query .= " from " . $this->model . ' ';
 
         if (count($this->joins) > 0) {
             $this->query .= implode(' ', $this->joins);
@@ -236,5 +248,45 @@ class Repository
         return $this->result($st->fetchAll());
     }
 
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null, $urlPattern = null)
+    {
+        $perPage = $perPage ?: 50;
+        
+        if (!$page) {
+            $page = (isset($_GET[$pageName])) ? $_GET[$pageName] : 1;
+        }
+        
+        if (!$urlPattern) {
+            $query = $_GET;
+            unset($query[$pageName]);
+            $urlPattern =  '?' . ((count($query) > 0) ? http_build_query($query) . '&' : '') . $pageName . '=(:num)';
+            //$_SERVER['SCRIPT_URI']
+        }
+        
+        //count
+        $this->select('count(*)');
+        $this->buildSelect();
+        $st = $this->connection->prepare($this->query);
+        $st->execute();
+        $totalItems = $st->fetchColumn();
+
+        $paginator = new Paginator([], $totalItems, $perPage, $page, $urlPattern);
+
+        //result
+        $this->select($columns);
+        $this->offset = $paginator->getCurrentPageFirstItem();
+        $this->limit = $perPage;
+        $this->buildSelect();
+        
+        $st = $this->connection->prepare($this->query);
+        $st->execute();
+
+        $paginator->setResults($st->fetchAll());
+
+        return $paginator;
+    }
+
     //https://websitebeaver.com/php-pdo-prepared-statements-to-prevent-sql-injection
+    ////$parameters = preg_replace('/&page(=[^&]*)?|^page(=[^&]*)?&?/','', $parameters);
+    //https://medium.com/swlh/how-to-implement-cursor-pagination-like-a-pro-513140b65f32
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Action\PageAction;
 use App\Action\ForesightApiAction;
+//use App\Action\ForesightPrintAction;
 use Slim\App;
 
 
@@ -13,6 +14,10 @@ return function (App $app) {
     $app->get('/tematy/{id}', PageAction::class . ':fsTopic');
     $app->get('/tematy/{id}/scenariusze', PageAction::class . ':fsTopic');
     $app->get('/tematy/{id}/scenariusze/{nr}', PageAction::class . ':fsTopic');
+
+    //$app->get('/tematy/{id}/wydruk', ForesightPrintAction::class);
+
+    $app->get('/test', PageAction::class . ':test');
 
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
     $app->any('/api/add_topic_type', ForesightApiAction::class . ':addTopicType');

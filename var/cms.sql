@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 11 Gru 2020, 16:23
+-- Czas generowania: 18 Gru 2020, 14:25
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -128,19 +128,37 @@ CREATE TABLE `factors` (
 --
 
 INSERT INTO `factors` (`id`, `id_topic`, `title`, `ord`, `key_factor`, `type`, `scenario_1`, `scenario_2`, `scenario_3`, `scenario_4`) VALUES
-(81, 1, 'gfdgfdgdfg', 0, 1, 1, 1, 1, 1, 0),
-(82, 1, 'fsdsdf', 0, 1, 1, 0, 1, 0, 0),
+(81, 1, 'kluczowy pierwszy', 0, 1, 1, 1, 1, 1, 0),
+(82, 1, 'drugi kluczowy', 0, 1, 1, 0, 1, 0, 0),
 (120, 1, 'ewrewr ewrewr ewr ewrewr', 0, 0, 1, 0, 0, 0, 0),
 (124, 1, 'sd sfdfsdf sdfsd ', 0, 0, 6, 0, 1, 1, 1),
 (125, 1, 'sdf sdf sdfs dfdsfsfsdfsdfsdf sdfdsfsdf', 0, 0, 6, 0, 0, 0, 1),
-(129, 1, 'werewrewrwer ewrwer', 0, 0, 1, 0, 0, 0, 0),
-(132, 1, 'dfdsfdsf', 0, 0, 5, 0, 0, 1, 0),
-(133, 1, 'fdgdfg', 0, 0, 4, 0, 0, 0, 0),
-(135, 1, 'ewrwerwe', 0, 0, 5, 0, 0, 0, 0),
-(136, 1, 'sdfsd fsdfdsfds fsd', 0, 0, 4, 0, 0, 0, 0),
-(137, 1, ' sdfdsfsd ', 0, 0, 4, 0, 0, 1, 0),
-(138, 1, 'sdf sdfdsfdsfdsf', 0, 0, 5, 0, 0, 0, 0),
-(139, 1, 'ds fsdf dsf dsfdfs', 0, 0, 6, 0, 0, 0, 0);
+(139, 1, 'ds fsdf dsf dsfdfs', 0, 0, 6, 1, 0, 0, 0),
+(140, 1, 'sdf sdfdsf dsfsdf', 0, 0, 6, 0, 0, 0, 0),
+(141, 1, 'sdf sdf sdfdsfdsfdsfsdf sdfsdfsd', 0, 0, 6, 0, 0, 0, 0),
+(142, 1, 'ds dsfdsfdsfdsfds', 0, 0, 6, 0, 0, 0, 0),
+(143, 1, 'dsf sdfdsfdsfdsfdsfsd fdsfsdfs', 0, 0, 6, 0, 0, 0, 0),
+(168, 1, 'sdf dsffs', 0, 0, 1, 0, 0, 0, 0),
+(171, 1, 'dsfsdfdsfs', 0, 0, 1, 0, 0, 0, 0),
+(172, 1, 'sdfdsfsdf', 0, 0, 1, 0, 0, 0, 0),
+(174, 1, 'sdfdsfsdf', 0, 0, 1, 0, 0, 0, 0),
+(192, 1, 'wqeqwe', 0, 0, 4, 0, 0, 0, 0),
+(193, 1, 'wqewqewqeq', 0, 0, 3, 0, 0, 0, 0),
+(204, 1, 'qwewqe', 0, 0, 3, 0, 0, 0, 0),
+(205, 1, 'wqewqe', 0, 0, 3, 0, 0, 0, 0),
+(206, 1, 'qwewqeqe', 0, 0, 3, 0, 0, 0, 0),
+(207, 1, 'qeweqwe', 0, 0, 3, 0, 0, 0, 0),
+(208, 1, 'qwewqeq', 0, 0, 3, 0, 0, 0, 0),
+(209, 1, 'qewweqwe', 0, 0, 3, 0, 0, 0, 0),
+(210, 1, 'ewqewqeq', 0, 0, 4, 0, 0, 0, 0),
+(211, 1, 'wewqeq', 0, 0, 4, 0, 0, 0, 0),
+(212, 1, 'qewqeqwe', 0, 0, 4, 0, 0, 0, 0),
+(213, 1, 'wqeqwe', 0, 0, 4, 0, 0, 0, 0),
+(214, 1, 'wewqeqw', 0, 0, 4, 0, 0, 0, 0),
+(215, 1, 'qwewqeqw', 0, 0, 4, 0, 0, 0, 0),
+(216, 1, 'qwewqeq', 0, 0, 4, 0, 0, 0, 0),
+(217, 1, 'qwewqeqwe', 0, 0, 4, 0, 0, 0, 0),
+(218, 1, 'wqeqwqw', 0, 0, 4, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -273,8 +291,8 @@ CREATE TABLE `scenarios` (
 
 INSERT INTO `scenarios` (`id`, `id_topic`, `title`, `subtitle`, `content`, `factors`, `ord`) VALUES
 (1, 1, 'Pierwszy scenariusz', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>\n<h1 style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Procedury postępowania</h1>\n<p><span style=\"color: #222222; font-family: Rubik, sans-serif;\">Ci, kt&oacute;rzy są fanami kina przygodowego z początku XXI wieku, też znajdą rozrywkę w \"The Christmas Chronicles 2\". Wystarczy, że pozwolą sobie na to, aby wyszło z nich mentalne dziecko. Wtedy wieczorny seans z rodziną okaże się sukcesem na miarę premiery pierwszego \"Harry\'ego Pottera\".</span></p>', '[23,24]', 1),
-(2, 1, 'Tytuł drugirgo scenariusza', '', '<h1>Nagł&oacute;wek 1</h1>\n<p>Treść opis tkie tam</p>', '', 2),
-(3, 1, 'Katastrofa nuklearna', '', '', '[]', 3),
+(2, 1, 'Tytuł drugirgo scenariusza', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>', '', 2),
+(3, 1, 'Katastrofa nuklearna', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>', '[]', 3),
 (4, 1, 'Koniec świata', '', '<h1 class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Wnioski</h1>\n<div class=\"css-16aryjy-Html--Container eyyskcn0\" style=\"margin-top: 18px; margin-bottom: 18px; color: #222222; font-family: Rubik, sans-serif;\">Filmy Roberta Rodrigueza nigdy nie należały do dzieł, o kt&oacute;rych m&oacute;wiło się, że są wyżynami kinematografii, ale dawały dzieciakom po prostu frajdę. Nie były przekombinowane, momentami wręcz raziły widza tandetą po oczach. Podobnie jest w przypadku \"Kroniki świątecznej: części 2\".</div>\n<div style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Nowej produkcji Netflixa udało się zrobić dokładnie to, co \"Małym agentom\". W filmie dzieciaki zamieniły się poniekąd rolami z dorosłymi i to one w gruncie rzeczy przewodzą wszelkim akcjom skierowanym przeciwko Belsnickelowi. W międzyczasie święty Mikołaj gdzieś sobie w tle tańczy lub śpiewa. Jest więc mało przydatnym sojusznikiem.</div>\n<h1 style=\"color: #222222; font-family: Rubik, sans-serif; margin-top: 18px; margin-bottom: 18px;\">Procedury postępowania</h1>\n<p><span style=\"color: #222222; font-family: Rubik, sans-serif;\">Ci, kt&oacute;rzy są fanami kina przygodowego z początku XXI wieku, też znajdą rozrywkę w \"The Christmas Chronicles 2\". Wystarczy, że pozwolą sobie na to, aby wyszło z nich mentalne dziecko. Wtedy wieczorny seans z rodziną okaże się sukcesem na miarę premiery pierwszego \"Harry\'ego Pottera\".</span></p>', '[24,23,25]', 4);
 
 -- --------------------------------------------------------
@@ -325,7 +343,8 @@ INSERT INTO `topics` (`id`, `title`, `subtitle`, `time_horizon`, `topic_area`, `
 (1, 'Czy androidy śnią o elektrycznych owcach?', '', 1, 2, '0000-00-00 00:00:00', '', 0, 1),
 (3, 'Zawód przyszłości', '', 2, 1, '0000-00-00 00:00:00', '', 0, 1),
 (4, 'Czy Mateusz wyprodukuje samochody elektryczne?', '', 3, 1, '0000-00-00 00:00:00', '', 0, 1),
-(5, 'Czy PIS będzie rządził do końca kadencji', '', 3, 3, '0000-00-00 00:00:00', '', 0, 1);
+(5, 'Czy PIS będzie rządził do końca kadencji', '', 3, 3, '0000-00-00 00:00:00', '', 0, 1),
+(6, 'Test timestamp and ip', '', 1, 1, '2020-12-16 13:14:14', '::1', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -370,8 +389,9 @@ CREATE TABLE `topics_factors_types` (
 INSERT INTO `topics_factors_types` (`id`, `id_topic`, `id_factor_type`) VALUES
 (8, 1, 1),
 (69, 1, 6),
-(74, 1, 4),
-(75, 1, 5);
+(91, 1, 4),
+(92, 1, 3),
+(94, 6, 1);
 
 --
 -- Indeksy dla zrzutów tabel
@@ -483,13 +503,13 @@ ALTER TABLE `contents`
 -- AUTO_INCREMENT dla tabeli `factors`
 --
 ALTER TABLE `factors`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=140;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
 
 --
 -- AUTO_INCREMENT dla tabeli `factors_types`
 --
 ALTER TABLE `factors_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT dla tabeli `globals`
@@ -525,7 +545,7 @@ ALTER TABLE `time_horizons`
 -- AUTO_INCREMENT dla tabeli `topics`
 --
 ALTER TABLE `topics`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `topics_areas`
@@ -537,7 +557,7 @@ ALTER TABLE `topics_areas`
 -- AUTO_INCREMENT dla tabeli `topics_factors_types`
 --
 ALTER TABLE `topics_factors_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

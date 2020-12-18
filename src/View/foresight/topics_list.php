@@ -14,3 +14,9 @@
     <div class="f5 lh-copy">Spróbuj zmienić kryteria wyszukiwania.</div>
 </div>
 <?php endif ?>
+
+<?php if ($pagination): ?>
+<div class="mt5 f2 w-100 flex justify-center">
+<?php echo $pagination ?>
+</div>
+<?php endif ?>

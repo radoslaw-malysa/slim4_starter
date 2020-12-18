@@ -130,11 +130,15 @@ class PageAction extends Action
             'topics_areas' => $topics_areas
         ]);
 
+        $data = $this->cms->topics->where('state', '1')->orderBy('create_time', 'desc')->paginate(18);
+
         $topics = $this->view->fetch('foresight/topics.php', [
-            'topics' => $this->cms->topics->where('state', '1')->orderBy('create_time', 'desc')->get(),
+            'topics' => $data->getResults(),
+            'pagination' => $data->toHtml(),
             'time_horizons' => $this->cms->indexArray($time_horizons),
             'topics_areas' => $this->cms->indexArray($topics_areas)
         ]);
+
         $footer = $this->view->fetch('foresight/footer.php');
 
         $content = $header.$topics.$footer;
@@ -149,12 +153,19 @@ class PageAction extends Action
 
         $data = $request->getQueryParams();
 
+        $time_horizons = $this->cms->timeHorizons->orderBy('years')->get();
+        $topics_areas = $this->cms->topicsAreas->orderBy('id')->get();
+        $data = $this->cms->topics
+        ->where('state', '1')
+        ->where('topic_area', ($data['topic_area']) ? $data['topic_area'] : null)
+        ->where('title', 'like', ($data['title']) ? '%'.$data['title'].'%' : null)
+        ->orderBy('create_time', ($data['order'] == 'created_asc') ? 'asc' : 'desc')->paginate(18);
+
         return $this->view->render($response, 'foresight/topics_list.php', [
-            'topics' => $this->cms->topics
-            ->where('state', '1')
-            ->where('topic_area', ($data['topic_area']) ? $data['topic_area'] : null)
-            ->where('title', 'like', ($data['title']) ? '%'.$data['title'].'%' : null)
-            ->orderBy('create_time', ($data['order'] == 'created_asc') ? 'asc' : 'desc')->get()
+            'topics' => $data->getResults(),
+            'pagination' => $data->toHtml(),
+            'time_horizons' => $this->cms->indexArray($time_horizons),
+            'topics_areas' => $this->cms->indexArray($topics_areas)
         ]);
     }
 
@@ -181,5 +192,26 @@ class PageAction extends Action
     }
 
 
+    /**
+     * test paginator
+     */
+    public function test(Request $request, Response $response, $args) {
+
+        $data = $request->getQueryParams();
+
+        $result = $this->cms->topics->paginate(2);
+        
+        echo '<pre>'; print_r($result); echo '</pre>'; echo $result; exit;
+
+        return $this->view->render($response, 'foresight/topics_list.php', [
+            'topics' => $this->cms->topics
+            ->where('state', '1')
+            ->where('topic_area', ($data['topic_area']) ? $data['topic_area'] : null)
+            ->where('title', 'like', ($data['title']) ? '%'.$data['title'].'%' : null)
+            ->orderBy('create_time', ($data['order'] == 'created_asc') ? 'asc' : 'desc')->get(),
+            'time_horizons' => $this->cms->indexArray($time_horizons),
+            'topics_areas' => $this->cms->indexArray($topics_areas)
+        ]);
+    }
 }
 //https://www.youtube.com/c/LachlanMiller/videos
