@@ -78,6 +78,17 @@ class Repository
         return $this->result($st->fetch());
     }
 
+    public function count()
+    {
+        $this->select('count(*)');
+        $this->buildSelect();
+        
+        $st = $this->connection->prepare($this->query);
+        $st->execute();
+
+        return $this->result($st->fetchColumn());
+    }
+
     protected function buildSelect()
     {
         $this->query = "select ";
@@ -135,11 +146,6 @@ class Repository
         return $this;
     }
 
-    public function count()
-    {
-
-    }
-
     public function max()
     {
 
@@ -185,9 +191,11 @@ class Repository
         $this->query = "INSERT INTO " . $this->model . " (" . implode(',', array_keys($data)) . ") VALUES (" . $placeholders . ")";
         
         $st = $this->connection->prepare($this->query);
-        $st->execute(array_values($data));
-        
-        return $this->connection->lastInsertId();
+        if ($st->execute(array_values($data))) {
+            return $this->connection->lastInsertId();
+        } else {
+            return false;
+        }
 
         //$this->guery = "INSERT INTO " . $this->model . " (" . implode(', ', array_keys($data)) . ") VALUES (" . implode(', ', array_values($data)) . ")";
     }

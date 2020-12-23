@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 18 Gru 2020, 14:25
+-- Czas generowania: 23 Gru 2020, 15:24
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -393,6 +393,31 @@ INSERT INTO `topics_factors_types` (`id`, `id_topic`, `id_factor_type`) VALUES
 (92, 1, 3),
 (94, 6, 1);
 
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `passwd` varchar(128) COLLATE utf8_polish_ci NOT NULL,
+  `id_group` tinyint(1) UNSIGNED NOT NULL DEFAULT '1',
+  `state` tinyint(1) UNSIGNED NOT NULL,
+  `create_time` datetime NOT NULL,
+  `create_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL,
+  `update_time` datetime NOT NULL,
+  `update_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `passwd`, `id_group`, `state`, `create_time`, `create_ip`, `update_time`, `update_ip`) VALUES
+(1, 'radek.malysa@gmail.com', '$2y$10$EFP1LAVQaznOXAGZ/r6o/OnakJO4iJYlp4qeEjFcjP82TWmp5qT8.', 1, 1, '2020-12-23 12:33:43', '::1', '2020-12-23 12:33:43', '::1');
+
 --
 -- Indeksy dla zrzutów tabel
 --
@@ -484,6 +509,13 @@ ALTER TABLE `topics_factors_types`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeksy dla tabeli `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `email` (`email`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -509,7 +541,7 @@ ALTER TABLE `factors`
 -- AUTO_INCREMENT dla tabeli `factors_types`
 --
 ALTER TABLE `factors_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT dla tabeli `globals`
@@ -558,6 +590,12 @@ ALTER TABLE `topics_areas`
 --
 ALTER TABLE `topics_factors_types`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+
+--
+-- AUTO_INCREMENT dla tabeli `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
