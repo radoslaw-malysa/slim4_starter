@@ -5,6 +5,8 @@ declare(strict_types=1);
 use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 
+session_start();
+
 require __DIR__ . '/../vendor/autoload.php';
 
 define('APP_ENV', $_ENV['APP_ENV'] ?? $_SERVER['APP_ENV'] ?? 'DEVELOPMENT');

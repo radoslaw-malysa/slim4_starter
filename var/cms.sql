@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 23 Gru 2020, 15:24
+-- Czas generowania: 30 Gru 2020, 15:46
 -- Wersja serwera: 10.1.38-MariaDB
 -- Wersja PHP: 7.3.2
 
@@ -331,6 +331,8 @@ CREATE TABLE `topics` (
   `topic_area` tinyint(3) UNSIGNED NOT NULL,
   `create_time` datetime NOT NULL,
   `create_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL,
+  `update_time` datetime NOT NULL,
+  `update_ip` varchar(16) COLLATE utf8_polish_ci NOT NULL,
   `id_user` int(10) UNSIGNED NOT NULL,
   `state` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
@@ -339,12 +341,12 @@ CREATE TABLE `topics` (
 -- Zrzut danych tabeli `topics`
 --
 
-INSERT INTO `topics` (`id`, `title`, `subtitle`, `time_horizon`, `topic_area`, `create_time`, `create_ip`, `id_user`, `state`) VALUES
-(1, 'Czy androidy śnią o elektrycznych owcach?', '', 1, 2, '0000-00-00 00:00:00', '', 0, 1),
-(3, 'Zawód przyszłości', '', 2, 1, '0000-00-00 00:00:00', '', 0, 1),
-(4, 'Czy Mateusz wyprodukuje samochody elektryczne?', '', 3, 1, '0000-00-00 00:00:00', '', 0, 1),
-(5, 'Czy PIS będzie rządził do końca kadencji', '', 3, 3, '0000-00-00 00:00:00', '', 0, 1),
-(6, 'Test timestamp and ip', '', 1, 1, '2020-12-16 13:14:14', '::1', 0, 1);
+INSERT INTO `topics` (`id`, `title`, `subtitle`, `time_horizon`, `topic_area`, `create_time`, `create_ip`, `update_time`, `update_ip`, `id_user`, `state`) VALUES
+(1, 'Czy androidy śnią o elektrycznych owcach?', '', 1, 2, '0000-00-00 00:00:00', '', '2020-12-30 11:04:04', '::1', 0, 2),
+(3, 'Zawód przyszłości', '', 2, 1, '0000-00-00 00:00:00', '', '2020-12-30 13:01:41', '::1', 0, 2),
+(4, 'Czy Mateusz wyprodukuje samochody elektryczne?', '', 3, 1, '0000-00-00 00:00:00', '', '2020-12-30 12:27:19', '::1', 0, 1),
+(5, 'Czy PIS będzie rządził do końca kadencji', '', 3, 3, '0000-00-00 00:00:00', '', '0000-00-00 00:00:00', '', 0, 1),
+(6, 'Test timestamp and ip', '', 1, 1, '2020-12-16 13:14:14', '::1', '2020-12-30 11:05:20', '::1', 0, 0);
 
 -- --------------------------------------------------------
 

@@ -23,7 +23,6 @@ class AdminAction
     
 
     public function login(Request $request, Response $response, $args) {
-        
         //$data = $request->getBody()->getContents();
         $data = $request->getParsedBody();
 
@@ -51,33 +50,70 @@ class AdminAction
     }
 
     public function session(Request $request, Response $response, $args) {
-        $payload = ($_SESSION['user_id']) ? [
+        $payload = (isset($_SESSION['user_id'])) ? [
             'id' => $_SESSION['user_id'],
-            'email' => $_SESSION['email']
+            'email' => $_SESSION['user_email']
         ] : [];
 
         $response->getBody()->write(json_encode($payload));
         return $response->withHeader('Content-Type', 'application/json');
     }
 
-    public function saveUser(Request $request, Response $response, $args) {
+    public function getUsers(Request $request, Response $response, $args) {
+        $data = $request->getQueryParams();
+
+        if ($data['orderBy']) {
+            $orderBy = $data['orderBy'];
+            $orderDesc = ($data['orderDesc'] == '1') ? 'desc' : 'asc';
+        } else {
+            $orderBy = 'create_time';
+            $orderDesc = 'desc';
+        }
+
+        $paginated = $this->users->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage']);
+        
+        $payload = [
+            'results' => $paginated->getResults(),
+            'totalItems' => $paginated->getTotalItems(),
+            'orderBy' => $orderBy,
+            'orderDesc' => ($orderDesc == 'desc') ? true : false
+        ];
+
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function updateUser(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
 
-        //print_r($data); exit;
+        $success = $this->users
+        ->where('id', $data['id'])
+        ->update([
+            'email' => $data['email'],
+            'state' => $data['state'],
+            'update_time' => date("Y-m-d H:i:s"),
+            'update_ip' => $_SERVER['REMOTE_ADDR']
+        ]);
 
-        if (!empty($data['id'])) {
-            $success = $this->users
+        if ($data['passwd']) {
+            $change_pass = $this->users
             ->where('id', $data['id'])
             ->update([
-                'email' => $data['email'],
                 'passwd' => password_hash($data['passwd'], PASSWORD_DEFAULT),
-                'state' => $data['state'],
-                'update_time' => date("Y-m-d H:i:s"),
-                'update_ip' => $_SERVER['REMOTE_ADDR']
             ]);
+        }
 
-            $payload = ($success) ? ['id' => $data['id']] : ['error' => 1, 'message' => 'Nie udało się zapisać użytkownika'];
-        } elseif ($data['email'] && $data['passwd']) {
+        $payload = ($success) ? ['id' => $data['id']] : ['error' => 1, 'message' => 'Nie udało się zapisać użytkownika'];
+
+        $response->getBody()->write(json_encode($payload));
+        
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function createUser(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+
+        if ($data['email'] && $data['passwd']) {
             if ($this->users->where('email', $data['email'])->count() > 0) {
                 $payload = ['error' => 1, 'message' => 'Ten adres e-mail już istnieje.'];
             } else {
@@ -96,6 +132,47 @@ class AdminAction
         } else {
             $payload = ['error' => 1, 'message' => 'Niekompletne dane. Wymagane: e-mail i hasło'];
         }
+
+        $response->getBody()->write(json_encode($payload));
+        
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function getTopics(Request $request, Response $response, $args) {
+        $data = $request->getQueryParams();
+
+        if ($data['orderBy']) {
+            $orderBy = $data['orderBy'];
+            $orderDesc = ($data['orderDesc'] == '1') ? 'desc' : 'asc';
+        } else {
+            $orderBy = 'create_time';
+            $orderDesc = 'desc';
+        }
+
+        $topics_paginated = $this->topics->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage']);
+        
+        $payload = [
+            'results' => $topics_paginated->getResults(),
+            'totalItems' => $topics_paginated->getTotalItems(),
+            'orderBy' => $orderBy,
+            'orderDesc' => ($orderDesc == 'desc') ? true : false
+        ];
+
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function updateTopics(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+
+        $data['update_time'] = date("Y-m-d H:i:s");
+        $data['update_ip'] = $_SERVER['REMOTE_ADDR'];
+
+        $success = $this->topics
+        ->where('id', $args['id'])
+        ->update($data);
+
+        $payload = ($success) ? ['id' => $args['id']] : ['error' => 1, 'message' => 'Nie udało się zapisać danych'];
 
         $response->getBody()->write(json_encode($payload));
         
