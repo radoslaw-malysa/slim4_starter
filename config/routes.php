@@ -23,10 +23,9 @@ return function (App $app) {
     $app->get('/admin/logout', AdminAction::class . ':logout');
     $app->get('/admin/session', AdminAction::class . ':session');
     $app->get('/admin/users', AdminAction::class . ':getUsers');
-    $app->post('/admin/users', AdminAction::class . ':createUsers');
-    $app->post('/admin/users/{id}', AdminAction::class . ':updateUsers');
-    $app->post('/admin/user', AdminAction::class . ':saveUser');
-    
+    $app->post('/admin/users', AdminAction::class . ':createUser');
+    $app->post('/admin/users/{id}', AdminAction::class . ':updateUser');
+
     $app->get('/admin/topics', AdminAction::class . ':getTopics');
     $app->post('/admin/topics/{id}', AdminAction::class . ':updateTopics');
 

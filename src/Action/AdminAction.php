@@ -70,7 +70,7 @@ class AdminAction
             $orderDesc = 'desc';
         }
 
-        $paginated = $this->users->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage']);
+        $paginated = $this->users->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage'], ['id','email','id_group','state','create_time']);
         
         $payload = [
             'results' => $paginated->getResults(),
@@ -91,11 +91,12 @@ class AdminAction
         ->update([
             'email' => $data['email'],
             'state' => $data['state'],
+            'id_group' => $data['id_group'],
             'update_time' => date("Y-m-d H:i:s"),
             'update_ip' => $_SERVER['REMOTE_ADDR']
         ]);
 
-        if ($data['passwd']) {
+        if (isset($data['passwd'])) {
             $change_pass = $this->users
             ->where('id', $data['id'])
             ->update([
@@ -120,7 +121,7 @@ class AdminAction
                 $user_id = $this->users->insert([
                     'email' => $data['email'],
                     'passwd' => password_hash($data['passwd'], PASSWORD_DEFAULT),
-                    'state' => 1,
+                    'state' => $data['state'],
                     'create_time' => date("Y-m-d H:i:s"),
                     'create_ip' => $_SERVER['REMOTE_ADDR'],
                     'update_time' => date("Y-m-d H:i:s"),
