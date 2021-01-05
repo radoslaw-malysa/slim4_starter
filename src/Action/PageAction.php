@@ -105,7 +105,7 @@ class PageAction extends Action
             'topics_areas' => $topics_areas
         ]);
         $hero = $this->view->fetch('foresight/hero.php', [
-            'topics' => $this->cms->topics->where('state', '1')->orderBy('create_time', 'desc')->limit(9)->get(),
+            'topics' => $this->cms->topics->where('state', '2')->orderBy('create_time', 'desc')->limit(9)->get(),
             'time_horizons' => $this->cms->indexArray($time_horizons),
             'topics_areas' => $this->cms->indexArray($topics_areas)
         ]);
@@ -130,7 +130,7 @@ class PageAction extends Action
             'topics_areas' => $topics_areas
         ]);
 
-        $data = $this->cms->topics->where('state', '1')->orderBy('create_time', 'desc')->paginate(18);
+        $data = $this->cms->topics->where('state', '2')->orderBy('create_time', 'desc')->paginate(18);
 
         $topics = $this->view->fetch('foresight/topics.php', [
             'topics' => $data->getResults(),
@@ -156,7 +156,7 @@ class PageAction extends Action
         $time_horizons = $this->cms->timeHorizons->orderBy('years')->get();
         $topics_areas = $this->cms->topicsAreas->orderBy('id')->get();
         $data = $this->cms->topics
-        ->where('state', '1')
+        ->where('state', '2')
         ->where('topic_area', ($data['topic_area']) ? $data['topic_area'] : null)
         ->where('title', 'like', ($data['title']) ? '%'.$data['title'].'%' : null)
         ->orderBy('create_time', ($data['order'] == 'created_asc') ? 'asc' : 'desc')->paginate(18);
@@ -177,7 +177,7 @@ class PageAction extends Action
         $topics_areas = $this->cms->topicsAreas->orderBy('id')->get();
 
         $header = $this->view->fetch('foresight/header.php', [
-            'edit_mode' => '1',
+            'edit_mode' => '0',
             'time_horizons' => $time_horizons,
             'topics_areas' => $topics_areas
         ]);

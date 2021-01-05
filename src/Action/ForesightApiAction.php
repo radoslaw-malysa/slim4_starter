@@ -30,8 +30,17 @@ class ForesightApiAction
 
     public function getTopic(Request $request, Response $response, $args) {
         
-        $topic = $this->topics->where('id', $args['id'])->first();
-        $topic['editable'] = ($topic['id'] > 2) ? 1 : 1;
+        if (strpos($args['id'], '-') !== false) {
+            list($id, $edit_key) = explode('-', $args['id']);
+            $topic = $this->topics->where('id', $id)->where('edit_key', $edit_key)->first();
+            $topic['editable'] = (isset($topic['id'])) ? 1 : 0;
+        }
+        
+        if (!isset($topic['id'])) {
+            $id = $args['id'];
+            $topic = $this->topics->where('id', $args['id'])->first();
+            $topic['editable'] = 0;
+        }
 
         $factors_types = ($topic['editable']) ? $this->indexArray($this->factorsTypes->topicSelectionEditable($topic['id'])) : $this->indexArray($this->factorsTypes->topicSelection($topic['id']));
         $topics_factors_types = $this->topicsFactorsTypes->where('id_topic', $args['id'])->get();
@@ -50,13 +59,23 @@ class ForesightApiAction
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     }
 
+    private function verifyEditKey($id) {
+        if (strpos($id, '-') !== false) {
+            list($id, $edit_key) = explode('-', $id);
+            $topic = $this->topics->where('id', $id)->where('edit_key', $edit_key)->first(['id']);
+            return $topic['id'];
+        } else {
+            return false;
+        }
+    }
+
     public function addTopicType(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
-        
-        if (isset($data['id_topic'])) {
+        $id_topic = $this->verifyEditKey($data['id_topic']);
 
+        if ($id_topic) {
             $this->topicsFactorsTypes->insert([
-                'id_topic' => $data['id_topic'],
+                'id_topic' => $id_topic,
                 'id_factor_type' => $data['id_factor_type']
             ]);
             
@@ -68,9 +87,9 @@ class ForesightApiAction
 
     public function createAddTopicType(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
-        
-        if (isset($data['id_topic'])) {
+        $id_topic = $this->verifyEditKey($data['id_topic']);
 
+        if ($id_topic) {
             $id_factor_type = $this->factorsTypes->insert([
                 'title' => $data['title'],
                 'color' => '#18b9a7',
@@ -79,7 +98,7 @@ class ForesightApiAction
             
             if ($id_factor_type) {
                 $this->topicsFactorsTypes->insert([
-                    'id_topic' => $data['id_topic'],
+                    'id_topic' => $id_topic,
                     'id_factor_type' => $id_factor_type
                 ]);
             } else {
@@ -94,10 +113,11 @@ class ForesightApiAction
 
     public function delTopicType(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
+        $id_topic = $this->verifyEditKey($data['id_topic']);
         
-        if (isset($data['id']) && isset($data['id_topic']) && isset($data['id_factor_type'])) {
+        if ($id_topic && isset($data['id']) && isset($data['id_factor_type'])) {
             $this->factors
-            ->where('id_topic', $data['id_topic'])
+            ->where('id_topic', $id_topic)
             ->where('type', $data['id_factor_type'])
             ->delete();
             
@@ -121,6 +141,7 @@ class ForesightApiAction
         
         $data = $request->getParsedBody();
         
+        
         if ($data['title']) {
             if (isset($data['id'])) {
                 $this->topics
@@ -131,13 +152,15 @@ class ForesightApiAction
                     'topic_area' => $data['topic_area']
                 ]);
             } else {
+                $edit_key = substr(md5(time().'x'), 0, 6);
                 $data['id'] = $this->topics->insert([
                     'title' => $data['title'],
                     'time_horizon' => $data['time_horizon'],
                     'topic_area' => $data['topic_area'],
                     'create_time' => date("Y-m-d H:i:s"),
                     'create_ip' => $_SERVER['REMOTE_ADDR'],
-                    'state' => 1
+                    'state' => 1,
+                    'edit_key' => $edit_key
                 ]);
 
                 //add first topic factors type
@@ -148,7 +171,7 @@ class ForesightApiAction
             }
         }
         
-        $payload = json_encode(['id' => $data['id']]);
+        $payload = json_encode(['id' => $data['id'] . '-' . $edit_key]);
 
         $response->getBody()->write($payload);
         return $response
@@ -160,9 +183,10 @@ class ForesightApiAction
 
     public function updateFactor(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
+        $id_topic = $this->verifyEditKey($data['id_topic']);
         
-        if (isset($data['id_topic'])) {
-            if ($data['id']) {
+        if ($id_topic) {
+            if ($data['id'] > 0) {
                 $this->factors
                 ->where('id', $data['id'])
                 ->update([
@@ -171,7 +195,7 @@ class ForesightApiAction
                 ]);
             } else {
                 $this->factors->insert([
-                    'id_topic' => $data['id_topic'],
+                    'id_topic' => $id_topic,
                     'title' => $data['title'],
                     'ord' => $data['ord'],
                     'key_factor' => '0',
@@ -187,8 +211,9 @@ class ForesightApiAction
 
     public function deleteFactor(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
+        $id_topic = $this->verifyEditKey($data['id_topic']);
         
-        if (isset($data['id_topic'])) {
+        if ($id_topic) {
             if (isset($data['id'])) {
                 $this->factors
                 ->where('id', $data['id'])
@@ -203,6 +228,7 @@ class ForesightApiAction
 
     public function updateKeyFactors(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
+        $id_topic = $this->verifyEditKey($data['id_topic']);
 
 
         /*$payload = json_encode($data);
@@ -213,9 +239,8 @@ class ForesightApiAction
                 ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); exit;*/
 
-        
-        if (isset($data['id_topic'])) {
-            $this->factors->where('id_topic', $data['id_topic'])->where('key_factor', '1')->update(['key_factor' => '0']);
+        if ($id_topic) {
+            $this->factors->where('id_topic', $id_topic)->where('key_factor', '1')->update(['key_factor' => '0']);
             if (isset($data['id'])) {
                 $this->factors->where('id', 'IN', $data['id'])->update(['key_factor' => '1']);
             }
@@ -227,10 +252,10 @@ class ForesightApiAction
 
     public function updateScenario(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
+        $id_topic = $this->verifyEditKey($data['id_topic']);
         
-        if (isset($data['id_topic'])) {
+        if ($id_topic) {
             if ($data['id']) {
-                
                 $this->scenarios
                 ->where('id', $data['id'])
                 ->update([
@@ -239,9 +264,8 @@ class ForesightApiAction
                     'ord' => $data['ord']
                 ]);
             } else {
-                
                 $this->scenarios->insert([
-                    'id_topic' => $data['id_topic'],
+                    'id_topic' => $id_topic,
                     'title' => $data['title'],
                     'content' => $data['content'],
                     'ord' => $data['ord']
@@ -256,12 +280,13 @@ class ForesightApiAction
 
     public function updateScenarioFactors(Request $request, Response $response, $args) {
         $data = $request->getParsedBody();
+        $id_topic = $this->verifyEditKey($data['id_topic']);
         
-        if (isset($data['id_topic']) && isset($data['nr'])) {
+        if ($id_topic && isset($data['nr'])) {
             
             //clear scenario factors
             $this->factors
-            ->where('id_topic', $data['id_topic'])
+            ->where('id_topic', $id_topic)
             ->update([
                 'scenario_' . $data['nr'] => '0'
             ]);

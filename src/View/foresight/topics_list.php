@@ -15,7 +15,7 @@
 </div>
 <?php endif ?>
 
-<?php if ($pagination): ?>
+<?php if (isset($pagination)): ?>
 <div class="mt5 f2 w-100 flex justify-center">
 <?php echo $pagination ?>
 </div>
