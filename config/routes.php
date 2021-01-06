@@ -29,6 +29,10 @@ return function (App $app) {
     $app->get('/admin/topics', AdminAction::class . ':getTopics');
     $app->post('/admin/topics/{id}', AdminAction::class . ':updateTopics');
 
+    $app->get('/admin/factors_types', AdminAction::class . ':getFactorsTypes');
+    $app->post('/admin/factors_types/{id}', AdminAction::class . ':updateFactorsTypes');
+    $app->post('/admin/factors_types', AdminAction::class . ':createFactorsTypes');
+
     //api
     $app->get('/api/topic/{id}', ForesightApiAction::class . ':getTopic');
     $app->any('/api/add_topic_type', ForesightApiAction::class . ':addTopicType');

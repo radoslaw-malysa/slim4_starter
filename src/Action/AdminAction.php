@@ -8,17 +8,18 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use App\Model\Foresight\TopicsRepository;
 use App\Model\Repositories\UsersRepository;
-//use App\Model\Foresight\FactorsTypesRepository;
+use App\Model\Foresight\FactorsTypesRepository;
 //use App\Model\Foresight\TopicsFactorsTypesRepository;
 //use App\Model\Foresight\FactorsRepository;
 //use App\Model\Foresight\ScenariosRepository;
 
 class AdminAction 
 {
-    public function __construct(TopicsRepository $topics, UsersRepository $users)
+    public function __construct(TopicsRepository $topics, UsersRepository $users, FactorsTypesRepository $factorsTypes)
     {
         $this->topics = $topics;
         $this->users = $users;
+        $this->factorsTypes = $factorsTypes;
     }
     
 
@@ -70,7 +71,16 @@ class AdminAction
             $orderDesc = 'desc';
         }
 
-        $paginated = $this->users->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage'], ['id','email','id_group','state','create_time']);
+
+        $query = $this->users->orderBy($orderBy, $orderDesc);
+        if (isset($data['email'])) { $query = $query->where('email', 'like', '%'.$data['email'].'%'); }
+        if (isset($data['state'])) { $query = $query->where('state', $data['state']); }
+        if (isset($data['id_group'])) { $query = $query->where('id_group', $data['id_group']); }
+        //if (isset($data['create_time_from'])) { $query = $query->where('create_time', '>=', $data['create_time_from']); }
+        //if (isset($data['create_time_to'])) { $query = $query->where('create_time', '<=', $data['create_time_to']); }
+        $paginated = $query->paginate($data['itemsPerPage'], ['id','email','id_group','state','create_time']);
+
+        //$paginated = $this->users->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage'], ['id','email','id_group','state','create_time']);
         
         $payload = [
             'results' => $paginated->getResults(),
@@ -150,7 +160,12 @@ class AdminAction
             $orderDesc = 'desc';
         }
 
-        $topics_paginated = $this->topics->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage']);
+        $query = $this->topics->orderBy($orderBy, $orderDesc);
+        if (isset($data['title'])) { $query = $query->where('title', 'like', '%'.$data['title'].'%'); }
+        if (isset($data['state'])) { $query = $query->where('state', $data['state']); }
+        if (isset($data['create_time_from'])) { $query = $query->where('create_time', '>=', $data['create_time_from']); }
+        if (isset($data['create_time_to'])) { $query = $query->where('create_time', '<=', $data['create_time_to']); }
+        $topics_paginated = $query->paginate($data['itemsPerPage']);
         
         $payload = [
             'results' => $topics_paginated->getResults(),
@@ -174,6 +189,69 @@ class AdminAction
         ->update($data);
 
         $payload = ($success) ? ['id' => $args['id']] : ['error' => 1, 'message' => 'Nie udało się zapisać danych'];
+
+        $response->getBody()->write(json_encode($payload));
+        
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function getFactorsTypes(Request $request, Response $response, $args) {
+        $data = $request->getQueryParams();
+
+        if ($data['orderBy']) {
+            $orderBy = $data['orderBy'];
+            $orderDesc = ($data['orderDesc'] == '1') ? 'desc' : 'asc';
+        } else {
+            $orderBy = 'title';
+            $orderDesc = 'asc';
+        }
+
+        $topics_paginated = $this->factorsTypes->where('standard_type', 1)->orderBy($orderBy, $orderDesc)->paginate($data['itemsPerPage']);
+        
+        $payload = [
+            'results' => $topics_paginated->getResults(),
+            'totalItems' => $topics_paginated->getTotalItems(),
+            'orderBy' => $orderBy,
+            'orderDesc' => ($orderDesc == 'desc') ? true : false
+        ];
+
+        $response->getBody()->write(json_encode($payload));
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function updateFactorsTypes(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+
+        $success = $this->factorsTypes
+        ->where('id', $data['id'])
+        ->update([
+            'title' => $data['title'],
+            'content' => $data['content']
+        ]);
+
+        $payload = ($success) ? ['id' => $data['id']] : ['error' => 1, 'message' => 'Nie udało się zapisać danych'];
+
+        $response->getBody()->write(json_encode($payload));
+        
+        return $response->withHeader('Content-Type', 'application/json');
+    }
+
+    public function createFactorsTypes(Request $request, Response $response, $args) {
+        $data = $request->getParsedBody();
+
+        if ($data['title']) {
+            $user_id = $this->factorsTypes->insert([
+                'title' => $data['title'],
+                'content' => $data['content'],
+                'color' => '#008ca8',
+                'standard_type' => 1
+            ]);
+
+            $payload = ($user_id) ? ['id' => $user_id] : ['error' => 1, 'message' => 'Nie udało się dodać danych'];
+            
+        } else {
+            $payload = ['error' => 1, 'message' => 'Niekompletne dane. Wymagane: tytuł'];
+        }
 
         $response->getBody()->write(json_encode($payload));
         
